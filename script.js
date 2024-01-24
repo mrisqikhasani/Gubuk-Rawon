@@ -2,10 +2,7 @@ var quantityChanges = {};
 // mengubah kuantitas ketika diklik
 function changeQuantity(modalCounter, action) {
   var quantityElement = document.querySelector(".quantity-order");
-  var quantityElementPost = document.querySelector(".quantity-order-hidden");
-  // var quantityElement = itemElement
-  //   ? itemElement.querySelector(".quantity-order")
-  //   : null;
+  var quantityElementPost = document.querySelector(`.quantity-order-hidden`);
 
   var currentQuantity = parseInt(quantityElement.innerText);
 
@@ -24,34 +21,19 @@ function changeQuantity(modalCounter, action) {
     //   quantityChanges[modalCounter] = {};
     // }
     // quantityChanges[modalCounter][itemId] = currentQuantity;
-    updateTotalPrice(modalCounter); // Perbaikan di sini, kirim modalCounter saja
+    // updateTotalPrice(modalCounter); // Perbaikan di sini, kirim modalCounter saja
   }
 }
 // remove item
-function removeItem(modalCounter, itemId) {
-  var itemElement = document.querySelector(
-    "#modalEditDetail" + modalCounter + ' [data-itemindex="' + itemId + '"]'
-  );
+function removeItem(counter, id) {
+  var itemElement = document.querySelector(`[data-itemindex="${counter}"]`);
+  var itemElementRemove = document.querySelector(`.itemRemove`);
 
   if (itemElement) {
     itemElement.remove();
-  } else {
-    // Jika tidak ada elemen, hapus dari quantityChanges
-    // Pastikan bahwa elemen dengan modalCounter sudah ada
-    if (!(modalCounter in quantityChanges)) {
-      quantityChanges[modalCounter] = {};
-    }
-
-    // Hapus elemen jika ada
-    if (itemId in quantityChanges[modalCounter]) {
-      delete quantityChanges[modalCounter][itemId];
-
-      // Update total harga setelah menghapus item
-      updateTotalPrice(modalCounter);
-    }
+    itemElementRemove.value = counter;
+    console.log(itemElementRemove);
   }
-
-  console.log(quantityChanges);
 }
 // update total Price
 function updateTotalPrice(orderId) {

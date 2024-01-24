@@ -74,6 +74,7 @@ if (isset($_GET['orderId'])) {
             <ul class="list-group">
               <?php
               $menuArray = explode(', ', $result['menuNames']);
+              $menuIdArray = explode(',', $result['menuID']);
               $quantityArray = explode(', ', $result['quantities']);
               $priceArray = explode(', ', $result['prices']);
               $subtotalEdit = 0;
@@ -82,17 +83,19 @@ if (isset($_GET['orderId'])) {
                 $subTotalItem = $quantityArray[$i] * $priceArray[$i];
                 $subtotalEdit += $subTotalItem;
               ?>
-                <li class="justify-content-between list-group-item" style="display:inline;">
+                <li class="justify-content-between list-group-item" style="display:inline;" data-itemindex="<?=$i?>">
                   <div class="items-orders">
-                    <span class="quantity-order"><?= $quantityArray[$i] ?></span>
+                    <span class="quantity-order" id='<?=$menuIdArray[$i]?>'><?= $quantityArray[$i] ?></span>
                     <?= $menuArray[$i] ?>
+                    <input type="hidden" name="menuId[]" value=<?=$menuIdArray[$i]?>>
                     <input type="hidden" name="menuArray[]" value="<?= $menuArray[$i] ?>">
-                    <input type="hidden" name="quantity[]" class="quantity-order-hidden" value="<?=$quantityArray[$i]?>">
+                    <input type="hidden" name="quantity[]" id="quantity-order-hidden" value="<?=$quantityArray[$i]?>">
                     <input type="hidden" name="prices[]" value="<?= $priceArray[$i] ?>">
-                    <button type="button" class="btn btn-light btn-sm m-1" style="float:right" onclick="removeItem(<?= $i ?>)">X</button>
+                    <button type="button" class="btn btn-light btn-sm m-1" style="float:right" onclick="removeItem(<?= $i ?>, <?=$menuIdArray[$i]?>)">X</button>
                     <button type="button" class="btn btn-light btn-sm m-1" style="float:right" onclick="changeQuantity(<?= $i ?>, 'decrease')">-</button>
                     <button type="button" class="btn btn-light btn-sm m-1" style="float:right" onclick="changeQuantity(<?= $i ?>, 'increase')">+</button>
-                    
+                    <input type="hidden" name='itemRemove[]' class="itemRemove" value="">
+
                     <span class="badge badge-secondary badge-pill mr-4x"  style="float:right">
                       <?= $subTotalItem ?>
                     </span>
