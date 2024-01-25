@@ -9,20 +9,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $phoneNumber = $_POST['phoneNumber'];
   $email = $_POST['email'];
   $address = $_POST['address'];
-  $menuId = $_POST['menuId'];
+  $menuId = $_POST['items-id'];
   $statusPemesanan = $_POST['statusPemesanan'];
-  $quantity = $_POST['quantity'];
-  $subtotal = $_POST['subtotal'];
+  $quantity = $_POST['quantity-items'];
+  $subtotal = $_POST['subtotal-items'];
   $paymentMethod = $_POST['paymentMethod'];
   $statuspayment = $_POST['statusPayment'];
-  
-  // $query = $db->update_orders_by_id($orderId, $)
-  // melakukan update pada database 
-  var_dump($orderId);
-  die;
+  $totalHarga = $_POST['totalHargaEdit'];
 
+  $query = $db->update_orders_by_id($orderId, $totalHarga, $statusPemesanan, $statuspayment, $paymentMethod, $quantity, $subtotal, $menuId);
+  // melakukan update pada _POSTbase 
 
-
+  header('location:../index.php?message=Successfully');
 
   // var_dump($modalCounter, $statusPemesanan, $statusPemesananSelect, $paymentMethodSelect, $statusPaymentSelect);
 

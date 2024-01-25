@@ -59,6 +59,7 @@ class database
             Orders.status AS orderStatus,
             Orders.paymentStatus,
             Orders.paymentMethod,
+            Orders.totalAmount,
             GROUP_CONCAT(Menu.menuID SEPARATOR ',') AS menuID,
             GROUP_CONCAT(Menu.menuName SEPARATOR ', ') AS menuNames,
             GROUP_CONCAT(OrderDetail.quantity SEPARATOR ', ') AS quantities,
@@ -90,29 +91,30 @@ class database
         return $data;
     }
 
-    public function update_orders_by_id($id, $totalAmount, $status, $paymentStatus, $paymentMethod, $quantity, $subTotal)
+    public function update_orders_by_id($id, $totalAmount, $status, $paymentStatus, $paymentMethod, $quantity, $subTotal, $menuId,)
     {
+        for ($i=0; $i < count($quantity); $i++) {
         // Query untuk update tabel orders
         $updateOrderQuery = "
-            UPDATE orders
-            SET 
-                totalAmount = ?,
-                status = ?,
-                paymentStatus = ?,
-                paymentMethod = ?
-            WHERE 
-                orderId = ?;
-        ";
+        UPDATE orders
+        SET 
+            totalAmount = ?,
+            status = ?,
+            paymentStatus = ?,
+            paymentMethod = ?
+        WHERE 
+            orderId = ?;
+    ";
 
         // Query untuk update tabel orderDetail
         $updateOrderDetailsQuery = "
-            UPDATE orderDetail
-            SET 
-                quantity = ?,
-                subTotal = ?
-            WHERE 
-                orderId = ?;
-        ";
+        UPDATE orderDetail
+        SET 
+            quantity = ?,
+            subTotal = ?
+        WHERE 
+            orderId = ? AND menuID = ?;
+    ";
 
         // Persiapkan statement untuk update orders
         $statementOrderQuery = $this->koneksi->prepare($updateOrderQuery);
@@ -120,10 +122,10 @@ class database
 
         // Persiapkan statement untuk update orderDetail
         $statementOrderDetailsQuery = $this->koneksi->prepare($updateOrderDetailsQuery);
-        $statementOrderDetailsQuery->bind_param('idi', $quantity, $subTotal, $id);
+        $statementOrderDetailsQuery->bind_param('idii', $quantity[$i], $subTotal[$i], $id, $menuId[$i]);
 
-        // Mulai transaksi untuk memastikan konsistensi data
         try {
+            // Mulai transaksi untuk memastikan konsistensi data
             $this->koneksi->begin_transaction();
 
             // Eksekusi query untuk update orders
@@ -136,17 +138,18 @@ class database
             $this->koneksi->commit();
 
             // Tampilkan pesan atau lakukan redirect setelah update
-            echo "Orders updated successfully!";
+            return "Data berhasil diupdate!";
         } catch (Exception $e) {
             // Rollback transaksi jika terjadi kesalahan
             $this->koneksi->rollback();
 
             // Tampilkan pesan kesalahan
-            echo "Error updating orders: " . $e->getMessage();
+            return "Error updating data: " . $e->getMessage();
+        } finally {
+            // Tutup statement
+            $statementOrderQuery->close();
+            $statementOrderDetailsQuery->close();
         }
-
-        // Tutup statement
-        $statementOrderQuery->close();
-        $statementOrderDetailsQuery->close();
+    }
     }
 }

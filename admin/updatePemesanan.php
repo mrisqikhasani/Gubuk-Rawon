@@ -77,43 +77,49 @@ if (isset($_GET['orderId'])) {
               $menuIdArray = explode(',', $result['menuID']);
               $quantityArray = explode(', ', $result['quantities']);
               $priceArray = explode(', ', $result['prices']);
-              $subtotalEdit = 0;
+              $subtotalEdit = $result['totalAmount'];
 
               for ($i = 0; $i < count($menuArray); $i++) :
                 $subTotalItem = $quantityArray[$i] * $priceArray[$i];
                 $subtotalEdit += $subTotalItem;
               ?>
-                <li class="justify-content-between list-group-item" style="display:inline;" data-itemindex="<?=$i?>">
+                <li class="justify-content-between list-group-item" style="display:inline;" data-itemindex="<?= $i ?>">
                   <div class="items-orders">
-                    <span class="quantity-order" id='<?=$menuIdArray[$i]?>'><?= $quantityArray[$i] ?></span>
-                    <?= $menuArray[$i] ?>
-                    <input type="hidden" name="menuId[]" value=<?=$menuIdArray[$i]?>>
-                    <input type="hidden" name="menuArray[]" value="<?= $menuArray[$i] ?>">
-                    <input type="hidden" name="quantity[]" id="quantity-order-hidden" value="<?=$quantityArray[$i]?>">
-                    <input type="hidden" name="prices[]" value="<?= $priceArray[$i] ?>">
-                    <button type="button" class="btn btn-light btn-sm m-1" style="float:right" onclick="removeItem(<?= $i ?>, <?=$menuIdArray[$i]?>)">X</button>
-                    <button type="button" class="btn btn-light btn-sm m-1" style="float:right" onclick="changeQuantity(<?= $i ?>, 'decrease')">-</button>
-                    <button type="button" class="btn btn-light btn-sm m-1" style="float:right" onclick="changeQuantity(<?= $i ?>, 'increase')">+</button>
-                    <input type="hidden" name='itemRemove[]' class="itemRemove" value="">
-
-                    <span class="badge badge-secondary badge-pill mr-4x"  style="float:right">
-                      <?= $subTotalItem ?>
-                    </span>
-                    <input type="hidden" name="subtotal[]" value="<?=$subTotalItem?>">
+                  </div>
+                  <div class="row">
+                    <div class="col-2 ">
+                      <label for="quantity-items">Quantity</label>
+                      <input type="number" class="form-control form-control-sm" name="quantity-items[]" value="<?= $quantityArray[$i] ?>">
+                      <input type="hidden" class="form-control form-control-sm" name="items-id[]" value="<?= $menuIdArray[$i] ?>">
+                    </div>
+                    <div class="col-6">
+                      <label for="menu">Menu</label><br>
+                      <label for="menu"><?= $menuArray[$i] ?></label>
+                      <input type="hidden" class="form-control" name="priceMenu[]" value="<?=$priceArray[$i] ?>" >
+                    </div>
+                    <div class="col-2">
+                      <label for="subtotal">Sub Total</label>
+                      <input type="text" class="form-control" name="subtotal-items[]" value="<?= $subTotalItem ?>" readonly>
+                    </div>
                   </div>
                 </li>
-
               <?php
               endfor;
               ?>
             </ul>
           </div>
           <div class="col-lg-8 mt-4">
-            <p class="biaya">biaya</p>
-            <ul class="list-group">
+            <p class="biaya">Biaya</p>
+            <ul class="list-group container">
               <li class="justify-content-between list-group-item">
-                Total
-                <span style="float: right;">Rp <?= $subtotalEdit ?></span>
+                <div class="row">
+                  <div class="col-lg-9">
+                    Total Harga
+                  </div>
+                  <div class="col-lg-3">
+                    <input type="text" class="form-control" name="totalHargaEdit" style="float:right" value="<?= $subtotalEdit ?>" readonly>
+                  </div>
+                </div>
               </li>
             </ul>
           </div>
