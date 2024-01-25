@@ -1,7 +1,7 @@
 <?php
-@include("layout/navbar.php");
+// @include("layout/navbar.php");
 
-@include("../koneksi.php");
+// @include("../koneksi.php");
 
 $db = new database();
 
@@ -70,12 +70,13 @@ $result = $query->fetch_all(MYSQLI_ASSOC);
 									<a href="#viewDetail<?= $counter ?>" class="btn btn-info" data-toggle="modal" data-target="#viewDetail<?= $counter ?>">
 										View
 									</a>
-									<a href="updatePemesanan.php?orderId=<?= $counter ?>" class="btn btn-warning">
+									<a href="updatePemesanan.php?orderId=<?= $value['orderID'] ?>" class="btn btn-warning">
 										Edit
 									</a>
-									<a href="" class="btn btn-danger">
+									<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">
 										Delete
-									</a>
+									</button>
+									<?php @include('layout/modalDelete.php') ?>
 								</td>
 							</tr>
 							<?php @include('layout/modalDetail.php') ?>
@@ -93,6 +94,6 @@ $result = $query->fetch_all(MYSQLI_ASSOC);
 </div>
 
 <?php
-@include('layout/footer.php');
+// @include('layout/footer.php');
 
 ?>

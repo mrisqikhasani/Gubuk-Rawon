@@ -4,11 +4,12 @@
 $db = new database();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $orderId = $_GET['orderId'];
+  $customerId = $_POST["customerID"];
   $name = $_POST['name'];
   $phoneNumber = $_POST['phoneNumber'];
   $email = $_POST['email'];
   $address = $_POST['address'];
+  $orderId = $_GET['orderId'];
   $menuId = $_POST['items-id'];
   $statusPemesanan = $_POST['statusPemesanan'];
   $quantity = $_POST['quantity-items'];
@@ -17,10 +18,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $statuspayment = $_POST['statusPayment'];
   $totalHarga = $_POST['totalHargaEdit'];
 
-  $query = $db->update_orders_by_id($orderId, $totalHarga, $statusPemesanan, $statuspayment, $paymentMethod, $quantity, $subtotal, $menuId);
+  $queryOrder = $db->update_orders_by_id($orderId, $totalHarga, $statusPemesanan, $statuspayment, $paymentMethod, $quantity, $subtotal, $menuId);
   // melakukan update pada _POSTbase 
+  $queryCustomer = $db->update_customer($customerId, $name, $email, $phoneNumber, $address);
 
-  header('location:../index.php?message=Successfully');
+
+  header('location:../pemesanan.php?message=Successfully');
 
   // var_dump($modalCounter, $statusPemesanan, $statusPemesananSelect, $paymentMethodSelect, $statusPaymentSelect);
 

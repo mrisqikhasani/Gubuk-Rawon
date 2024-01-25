@@ -17,6 +17,21 @@ class database
         }
     }
 
+    public function get_all_order(){
+        $query = "
+            SELECT 
+            COUNT(orderID) AS TotalOrder,
+            COUNT(DISTINCT customerID) AS TotalCustomer,
+            COUNT(CASE WHEN status='Selesai' THEN orderID END) AS TotalSelesaiOrders,
+            COUNT(CASE WHEN status='Pending' THEN orderID END) AS TotalPendingOrders,
+            SUM(totalAmount) AS totalAmount
+            FROM orders;
+        ";
+
+        $data = mysqli_query($this->koneksi, $query);
+        return $data;
+    }
+
     public function get_orders_by_customer()
     {
         $query = "
@@ -93,9 +108,10 @@ class database
 
     public function update_orders_by_id($id, $totalAmount, $status, $paymentStatus, $paymentMethod, $quantity, $subTotal, $menuId,)
     {
-        for ($i=0; $i < count($quantity); $i++) {
-        // Query untuk update tabel orders
-        $updateOrderQuery = "
+
+        for ($i = 0; $i < count($quantity); $i++) {
+            // Query untuk update tabel orders
+            $updateOrderQuery = "
         UPDATE orders
         SET 
             totalAmount = ?,
@@ -106,8 +122,8 @@ class database
             orderId = ?;
     ";
 
-        // Query untuk update tabel orderDetail
-        $updateOrderDetailsQuery = "
+            // Query untuk update tabel orderDetail
+            $updateOrderDetailsQuery = "
         UPDATE orderDetail
         SET 
             quantity = ?,
@@ -116,40 +132,111 @@ class database
             orderId = ? AND menuID = ?;
     ";
 
-        // Persiapkan statement untuk update orders
-        $statementOrderQuery = $this->koneksi->prepare($updateOrderQuery);
-        $statementOrderQuery->bind_param('ssssi', $totalAmount, $status, $paymentStatus, $paymentMethod, $id);
+            // Persiapkan statement untuk update orders
+            $statementOrderQuery = $this->koneksi->prepare($updateOrderQuery);
+            $statementOrderQuery->bind_param('ssssi', $totalAmount, $status, $paymentStatus, $paymentMethod, $id);
 
-        // Persiapkan statement untuk update orderDetail
-        $statementOrderDetailsQuery = $this->koneksi->prepare($updateOrderDetailsQuery);
-        $statementOrderDetailsQuery->bind_param('idii', $quantity[$i], $subTotal[$i], $id, $menuId[$i]);
+            // Persiapkan statement untuk update orderDetail
+            $statementOrderDetailsQuery = $this->koneksi->prepare($updateOrderDetailsQuery);
+            $statementOrderDetailsQuery->bind_param('idii', $quantity[$i], $subTotal[$i], $id, $menuId[$i]);
 
-        try {
-            // Mulai transaksi untuk memastikan konsistensi data
-            $this->koneksi->begin_transaction();
+            try {
+                // Mulai transaksi untuk memastikan konsistensi data
+                $this->koneksi->begin_transaction();
 
-            // Eksekusi query untuk update orders
-            $statementOrderQuery->execute();
+                // Eksekusi query untuk update orders
+                $statementOrderQuery->execute();
 
-            // Eksekusi query untuk update orderDetail
-            $statementOrderDetailsQuery->execute();
+                // Eksekusi query untuk update orderDetail
+                $statementOrderDetailsQuery->execute();
 
-            // Commit transaksi jika semua query berhasil
-            $this->koneksi->commit();
+                // Commit transaksi jika semua query berhasil
+                $this->koneksi->commit();
 
-            // Tampilkan pesan atau lakukan redirect setelah update
-            return "Data berhasil diupdate!";
-        } catch (Exception $e) {
-            // Rollback transaksi jika terjadi kesalahan
-            $this->koneksi->rollback();
+                // Tampilkan pesan atau lakukan redirect setelah update
+                return "Data berhasil diupdate!";
+            } catch (Exception $e) {
+                // Rollback transaksi jika terjadi kesalahan
+                $this->koneksi->rollback();
 
-            // Tampilkan pesan kesalahan
-            return "Error updating data: " . $e->getMessage();
-        } finally {
-            // Tutup statement
-            $statementOrderQuery->close();
-            $statementOrderDetailsQuery->close();
+                // Tampilkan pesan kesalahan
+                return "Error updating data: " . $e->getMessage();
+            } finally {
+                // Tutup statement
+                $statementOrderQuery->close();
+                $statementOrderDetailsQuery->close();
+            }
         }
     }
+
+    public function update_customer($customerID, $name, $email, $phoneNumber, $address)
+    {
+        $updateCustomerQuery = "
+        UPDATE customer
+        SET
+            name = ?,
+            email= ?,
+            phoneNumber = ?,
+            address = ?
+        WHERE
+            customerId = ?
+        ";
+
+        $stmt = $this->koneksi->prepare($updateCustomerQuery);
+        $stmt->bind_param("ssssi", $name, $email,  $phoneNumber, $address, $customerID);
+        $stmt->execute();
+
+        if ($stmt->affected_rows > 0) {
+            // The UPDATE operation was successful
+            $stmt->close();
+            return true;
+        } else {
+            // The UPDATE operation failed
+            $stmt->close();
+            return false;
+        }
     }
+
+    public function deleteOrder($orderId, $customerID)
+    {
+        $deleteOrderQuery = "
+        DELETE
+        FROM orders
+        WHERE orderID = ?
+        ";
+
+        $deleteOrderDetailsQuery = "
+        DELETE 
+        FROM orderDetail
+        WHERE orderID = ?
+        ";
+
+        $deleteCustomerQuery = "
+        DELETE 
+        FROM 
+            customer
+        WHERE customerID = ?;
+        ";
+        
+        $statementOrderQuery = $this->koneksi->prepare($deleteOrderQuery);
+        $statementOrderQuery->bind_param('i', $orderId);
+
+        $statementOrderDetailQuery = $this->koneksi->prepare($deleteOrderDetailsQuery);
+        $statementOrderDetailQuery->bind_param('i', $orderId);
+
+        $statementCustomerQuery = $this->koneksi->prepare($deleteCustomerQuery);
+        $statementCustomerQuery->bind_param('i', $customerID);
+
+        $statementOrderQuery->execute();    
+        $statementCustomerQuery->execute();
+
+
+        $statementOrderQuery->close();    
+        $statementCustomerQuery->close();
+
+        return "Data berhasil dihapus";
+        
+    }
+
+    
 }

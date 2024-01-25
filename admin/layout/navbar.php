@@ -65,11 +65,11 @@ $current_file = basename($_SERVER['SCRIPT_FILENAME']);
             <hr class="sidebar-divider">
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item <?php echo $current_file === 'pemesanan.php' ? 'active' : '' ?> ">
+            <!-- <li class="nav-item <?php echo $current_file === 'pemesanan.php' ? 'active' : '' ?> ">
                 <a class="nav-link" href="pemesanan.php">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Pemesanan</span></a>
-            </li>
+            </li> -->
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

@@ -34,6 +34,7 @@ if (isset($_GET['orderId'])) {
             <div class="col-lg-8 m-2">
               <label for="name">Name</label>
               <input type="text" class="form-control" name="name" value="<?= $result['name'] ?>" placeholder="name">
+              <input type="hidden" class="form-control" name="customerID" value="<?= $result['customerID'] ?>" placeholder="name">
             </div>
             <div class="col-lg-8 m-2">
               <label for="phoneNumber">Phone Number</label>
