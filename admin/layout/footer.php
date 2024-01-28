@@ -32,7 +32,7 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <a class="btn btn-primary" href="logout.php">Logout</a>
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@
 
 
 <!-- base Sctipt -->
-<script src="../script.js"></script>
+<script src="scriptAdmin.js"></script>
 <!-- Bootstrap core JavaScript-->
 <script src="../assets/template/vendor/jquery/jquery.min.js"></script>
 <script src="../assets/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

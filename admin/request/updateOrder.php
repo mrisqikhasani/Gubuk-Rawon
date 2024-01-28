@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $queryCustomer = $db->update_customer($customerId, $name, $email, $phoneNumber, $address);
 
 
-  header('location:../pemesanan.php?message=Successfully');
+  header('location:../index.php?message=Successfully');
 
   // var_dump($modalCounter, $statusPemesanan, $statusPemesananSelect, $paymentMethodSelect, $statusPaymentSelect);
 
