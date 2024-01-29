@@ -17,6 +17,12 @@ class database
         }
     }
 
+    public function get_data_user($username){
+        $queryGetUser = "SELECT * FROM user WHERE username = '$username'";
+        $data = mysqli_query($this->koneksi, $queryGetUser);
+        return $data;
+    }
+
     public function get_all_order(){
         $query = "
             SELECT 
@@ -105,6 +111,8 @@ class database
 
         return $data;
     }
+
+    // insert orders and table orderDetail
 
     public function update_orders_by_id($id, $totalAmount, $status, $paymentStatus, $paymentMethod, $quantity, $subTotal, $menuId,)
     {
@@ -238,5 +246,13 @@ class database
         
     }
 
+    public function get_menu_by_category($kategori){
+        $getMenuQuery = "SELECT * FROM menu WHERE category = '$kategori'";
+
+        $data = mysqli_query($this->koneksi, $getMenuQuery);
+        return $data;
+    }
+
+    
     
 }

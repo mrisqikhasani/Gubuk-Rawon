@@ -570,7 +570,7 @@ img {
 RESERVATION SECTION
 ====================*/
 #mu-reservation {
-  background-color: #222;
+  background-color: #fff;
   display: inline;
   float: left;
   padding: 100px 0;
@@ -685,6 +685,20 @@ RESERVATION SECTION
 .datepicker table tr td.day:hover {
   color: #fff;
 }
+
+/* 
+.cart-show {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: block;
+}
+
+#cart-items {
+  color: aqua;
+} */
+
+
 
 /*==================
  GALLERY SECTION

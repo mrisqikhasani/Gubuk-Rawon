@@ -11,6 +11,9 @@
 
   <title>SB Admin 2 - Login</title>
 
+  <!-- favicon -->
+  <link rel="shortcut icon" href="assets/img/about-us/logo 3.png" type="image/x-icon">
+
   <!-- Custom fonts for this template-->
   <link href="assets/template/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -32,26 +35,43 @@
           <div class="card-body">
             <!-- Nested Row within Card Body -->
             <div class="row">
-              <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
               <div class="col-lg-12">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Welcome to Gubuk Rawon</h1>
-                    <h5>Gubuk Rawon</h5>
-                    <p class="md-5"></p>
+                    <h1 class="h4 text-gray-900 mb-4">Welcome to Gubuk Rawon 👋</h1>
+                    <p class="mb-5">
+                      <?php
+                      if (isset($_GET['pesan'])) {
+                        if ($_GET['pesan'] == 'gagal') {
+                          echo '<i class="text-danger">Login Gagal Username atau Password tidak ditemukan</i>';
+                        } else if ($_GET['pesan'] == 'empty') {
+                          echo '<i class="text-danger">Username dan Password tidak boleh kosong </i>';
+                        } else if ($_GET['pesan'] == 'notfound') {
+                          echo '<i class="text-danger">username tidak tersedia! </i>';
+                        } else if ($_GET['pesan'] == 'notlogin') {
+                          echo '<i class="text-danger">Anda harus login untuk mengakses halaman admin! </i>';
+                        } else if ($_GET['pesan'] == 'logout') {
+                          echo '<i class="text-danger">Anda telah berhasil logout </i>';
+                        }
+                      }
+                      ?>
+                    </p>
                   </div>
-                  <form class="user" action="cek_login.php" method="POST" >
+                  <form class="user" action="cek_login.php" method="POST">
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Username..." required>
+                      <input type="text" name="username" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Username..." required>
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" required>
+                      <input type="password" name="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" required>
                     </div>
                     <button type="submit" name="submit" class="btn btn-primary btn-user btn-block">
                       Login
                     </button>
                   </form>
                   <hr>
+                  <div class="text-center">
+                    <a class="small" href="index.php">Kembali ke Beranda</a>
+                  </div>
                 </div>
               </div>
             </div>
