@@ -9,7 +9,6 @@ $resultPaket = $db->get_menu_by_category('paket')->fetch_all(MYSQLI_ASSOC);
 $resultMinuman = $db->get_menu_by_category('minuman')->fetch_all(MYSQLI_ASSOC);
 $resultOthers = $db->get_menu_by_category('lain-lain')->fetch_all(MYSQLI_ASSOC);
 
-
 ?>
 
 <!DOCTYPE html>

@@ -2,29 +2,31 @@
 // class untuk menghubungkan ke database 
 class database
 {
-    var $db_host = "localhost";
-    var $db_user = "root";
-    var $db_password = "";
-    var $db_name = "gubuk_rawon";
-    var $koneksi = "";
+  var $db_host = "localhost";
+  var $db_user = "root";
+  var $db_password = "";
+  var $db_name = "gubuk_rawon";
+  var $koneksi = "";
 
-    // melakukan koneksi dengan database jika error maka ditampilkan error nya
-    public function __construct()
-    {
-        $this->koneksi = mysqli_connect($this->db_host, $this->db_user, $this->db_password, $this->db_name);
-        if (mysqli_connect_errno()) {
-            echo "Koneksi database Gagal :" . mysqli_connect_error();
-        }
+  // melakukan koneksi dengan database jika error maka ditampilkan error nya
+  public function __construct()
+  {
+    $this->koneksi = mysqli_connect($this->db_host, $this->db_user, $this->db_password, $this->db_name);
+    if (mysqli_connect_errno()) {
+      echo "Koneksi database Gagal :" . mysqli_connect_error();
     }
+  }
 
-    public function get_data_user($username){
-        $queryGetUser = "SELECT * FROM user WHERE username = '$username'";
-        $data = mysqli_query($this->koneksi, $queryGetUser);
-        return $data;
-    }
+  public function get_data_user($username)
+  {
+    $queryGetUser = "SELECT * FROM user WHERE username = '$username'";
+    $data = mysqli_query($this->koneksi, $queryGetUser);
+    return $data;
+  }
 
-    public function get_all_order(){
-        $query = "
+  public function get_all_order()
+  {
+    $query = "
             SELECT 
             COUNT(orderID) AS TotalOrder,
             COUNT(DISTINCT customerID) AS TotalCustomer,
@@ -34,13 +36,13 @@ class database
             FROM orders;
         ";
 
-        $data = mysqli_query($this->koneksi, $query);
-        return $data;
-    }
+    $data = mysqli_query($this->koneksi, $query);
+    return $data;
+  }
 
-    public function get_orders_by_customer()
-    {
-        $query = "
+  public function get_orders_by_customer()
+  {
+    $query = "
             SELECT
             Customer.customerID,
             Customer.name,
@@ -62,13 +64,13 @@ class database
         JOIN Menu ON OrderDetail.menuID = Menu.menuID
         GROUP BY
             Orders.orderID";
-        $data = mysqli_query($this->koneksi, $query);
-        return $data;
-    }
+    $data = mysqli_query($this->koneksi, $query);
+    return $data;
+  }
 
-    public function get_orders_customer_by_id($orderId)
-    {
-        $query = "
+  public function get_orders_customer_by_id($orderId)
+  {
+    $query = "
                 SELECT
             Customer.customerID,
             Customer.name,
@@ -95,31 +97,78 @@ class database
             Orders.orderID;
         ";
 
-        // prepared statement
-        $stmt = mysqli_prepare($this->koneksi, $query);
-        mysqli_stmt_bind_param($stmt, "i", $orderId);
-        mysqli_stmt_execute($stmt);
+    // prepared statement
+    $stmt = mysqli_prepare($this->koneksi, $query);
+    mysqli_stmt_bind_param($stmt, "i", $orderId);
+    mysqli_stmt_execute($stmt);
 
-        // Get the result
-        $result = mysqli_stmt_get_result($stmt);
+    // Get the result
+    $result = mysqli_stmt_get_result($stmt);
 
-        // Fetch the data
-        $data = mysqli_fetch_assoc($result);
+    // Fetch the data
+    $data = mysqli_fetch_assoc($result);
 
-        // Close the statement
-        mysqli_stmt_close($stmt);
+    // Close the statement
+    mysqli_stmt_close($stmt);
 
-        return $data;
+    return $data;
+  }
+
+  public function get_customer($name)
+  {
+    $getCustomerQuery = '';
+  }
+
+  // insert orders and table orderDetail
+  public function post_order($customerData, $products)
+  {
+    // insert into customer
+    $insertCustomerQuery = "
+        INSERT INTO customer(name, email, phoneNumber, address) VALUES(?, ?, ?, ?); 
+        ";
+    $customerStmt = $this->koneksi->prepare($insertCustomerQuery);
+    $customerStmt->bind_param('ssss', $customerData['name'], $customerData['email'], $customerData['phoneNumber'], $customerData['address']);
+    $customerStmt->execute();
+    $customerID = $customerStmt->insert_id;
+    $customerStmt->close();
+
+    // insert into orders
+    $insertOrdersQuery = "
+        INSERT INTO orders(customerID, totalAmout, paymentMethod) VALUES (?, ?, ?);
+        ";
+    $ordersStmt = $this->koneksi->prepare($insertOrdersQuery);
+    $ordersStmt->bind_param('ids', $customerID, $customerData['total'], $customerData['metodePembayaran']);
+    $ordersStmt->execute();
+    $ordersID = $ordersStmt->insert_id;
+    $ordersStmt->close();
+
+    // insert into OrderSDetails
+    $insertOrdersDetail = "
+        INSERT INTO orderDetail(orderID, menuID, quantity, subtotal) VALUES(?, ?, ?, ?);
+        ";
+    $orderDetailsStmt = $this->koneksi->prepare($insertOrdersDetail);
+
+    foreach ($products as $productKey => $product) {
+      if (strpos($productKey, "productName_") === 0) {
+        $productID = substr($productKey, strlen("productName_"));
+        $quantity = $products["productQuantity_$productID"];
+        $price = $products["productPrice_$productID"];
+
+        $orderDetailsStmt->bind_param('iiid', $ordersID, $productID, $quantity, $price);
+        $orderDetailsStmt->execute();
+      }
     }
+    $orderDetailsStmt->close();
+    return "Success";
+  }
 
-    // insert orders and table orderDetail
 
-    public function update_orders_by_id($id, $totalAmount, $status, $paymentStatus, $paymentMethod, $quantity, $subTotal, $menuId,)
-    {
+  public function update_orders_by_id($id, $totalAmount, $status, $paymentStatus, $paymentMethod, $quantity, $subTotal, $menuId,)
+  {
 
-        for ($i = 0; $i < count($quantity); $i++) {
-            // Query untuk update tabel orders
-            $updateOrderQuery = "
+    for ($i = 0; $i < count($quantity); $i++) {
+      // Query untuk update tabel orders
+      $updateOrderQuery = "
         UPDATE orders
         SET 
             totalAmount = ?,
@@ -130,8 +179,8 @@ class database
             orderId = ?;
     ";
 
-            // Query untuk update tabel orderDetail
-            $updateOrderDetailsQuery = "
+      // Query untuk update tabel orderDetail
+      $updateOrderDetailsQuery = "
         UPDATE orderDetail
         SET 
             quantity = ?,
@@ -140,46 +189,46 @@ class database
             orderId = ? AND menuID = ?;
     ";
 
-            // Persiapkan statement untuk update orders
-            $statementOrderQuery = $this->koneksi->prepare($updateOrderQuery);
-            $statementOrderQuery->bind_param('ssssi', $totalAmount, $status, $paymentStatus, $paymentMethod, $id);
+      // Persiapkan statement untuk update orders
+      $statementOrderQuery = $this->koneksi->prepare($updateOrderQuery);
+      $statementOrderQuery->bind_param('ssssi', $totalAmount, $status, $paymentStatus, $paymentMethod, $id);
 
-            // Persiapkan statement untuk update orderDetail
-            $statementOrderDetailsQuery = $this->koneksi->prepare($updateOrderDetailsQuery);
-            $statementOrderDetailsQuery->bind_param('idii', $quantity[$i], $subTotal[$i], $id, $menuId[$i]);
+      // Persiapkan statement untuk update orderDetail
+      $statementOrderDetailsQuery = $this->koneksi->prepare($updateOrderDetailsQuery);
+      $statementOrderDetailsQuery->bind_param('idii', $quantity[$i], $subTotal[$i], $id, $menuId[$i]);
 
-            try {
-                // Mulai transaksi untuk memastikan konsistensi data
-                $this->koneksi->begin_transaction();
+      try {
+        // Mulai transaksi untuk memastikan konsistensi data
+        $this->koneksi->begin_transaction();
 
-                // Eksekusi query untuk update orders
-                $statementOrderQuery->execute();
+        // Eksekusi query untuk update orders
+        $statementOrderQuery->execute();
 
-                // Eksekusi query untuk update orderDetail
-                $statementOrderDetailsQuery->execute();
+        // Eksekusi query untuk update orderDetail
+        $statementOrderDetailsQuery->execute();
 
-                // Commit transaksi jika semua query berhasil
-                $this->koneksi->commit();
+        // Commit transaksi jika semua query berhasil
+        $this->koneksi->commit();
 
-                // Tampilkan pesan atau lakukan redirect setelah update
-                return "Data berhasil diupdate!";
-            } catch (Exception $e) {
-                // Rollback transaksi jika terjadi kesalahan
-                $this->koneksi->rollback();
+        // Tampilkan pesan atau lakukan redirect setelah update
+        return "Data berhasil diupdate!";
+      } catch (Exception $e) {
+        // Rollback transaksi jika terjadi kesalahan
+        $this->koneksi->rollback();
 
-                // Tampilkan pesan kesalahan
-                return "Error updating data: " . $e->getMessage();
-            } finally {
-                // Tutup statement
-                $statementOrderQuery->close();
-                $statementOrderDetailsQuery->close();
-            }
-        }
+        // Tampilkan pesan kesalahan
+        return "Error updating data: " . $e->getMessage();
+      } finally {
+        // Tutup statement
+        $statementOrderQuery->close();
+        $statementOrderDetailsQuery->close();
+      }
     }
+  }
 
-    public function update_customer($customerID, $name, $email, $phoneNumber, $address)
-    {
-        $updateCustomerQuery = "
+  public function update_customer($customerID, $name, $email, $phoneNumber, $address)
+  {
+    $updateCustomerQuery = "
         UPDATE customer
         SET
             name = ?,
@@ -190,69 +239,66 @@ class database
             customerId = ?
         ";
 
-        $stmt = $this->koneksi->prepare($updateCustomerQuery);
-        $stmt->bind_param("ssssi", $name, $email,  $phoneNumber, $address, $customerID);
-        $stmt->execute();
+    $stmt = $this->koneksi->prepare($updateCustomerQuery);
+    $stmt->bind_param("ssssi", $name, $email,  $phoneNumber, $address, $customerID);
+    $stmt->execute();
 
-        if ($stmt->affected_rows > 0) {
-            // The UPDATE operation was successful
-            $stmt->close();
-            return true;
-        } else {
-            // The UPDATE operation failed
-            $stmt->close();
-            return false;
-        }
+    if ($stmt->affected_rows > 0) {
+      // The UPDATE operation was successful
+      $stmt->close();
+      return true;
+    } else {
+      // The UPDATE operation failed
+      $stmt->close();
+      return false;
     }
+  }
 
-    public function deleteOrder($orderId, $customerID)
-    {
-        $deleteOrderQuery = "
+  public function deleteOrder($orderId, $customerID)
+  {
+    $deleteOrderQuery = "
         DELETE
         FROM orders
         WHERE orderID = ?
         ";
 
-        $deleteOrderDetailsQuery = "
+    $deleteOrderDetailsQuery = "
         DELETE 
         FROM orderDetail
         WHERE orderID = ?
         ";
 
-        $deleteCustomerQuery = "
+    $deleteCustomerQuery = "
         DELETE 
         FROM 
             customer
         WHERE customerID = ?;
         ";
-        
-        $statementOrderQuery = $this->koneksi->prepare($deleteOrderQuery);
-        $statementOrderQuery->bind_param('i', $orderId);
 
-        $statementOrderDetailQuery = $this->koneksi->prepare($deleteOrderDetailsQuery);
-        $statementOrderDetailQuery->bind_param('i', $orderId);
+    $statementOrderQuery = $this->koneksi->prepare($deleteOrderQuery);
+    $statementOrderQuery->bind_param('i', $orderId);
 
-        $statementCustomerQuery = $this->koneksi->prepare($deleteCustomerQuery);
-        $statementCustomerQuery->bind_param('i', $customerID);
+    $statementOrderDetailQuery = $this->koneksi->prepare($deleteOrderDetailsQuery);
+    $statementOrderDetailQuery->bind_param('i', $orderId);
 
-        $statementOrderQuery->execute();    
-        $statementCustomerQuery->execute();
+    $statementCustomerQuery = $this->koneksi->prepare($deleteCustomerQuery);
+    $statementCustomerQuery->bind_param('i', $customerID);
+
+    $statementOrderQuery->execute();
+    $statementCustomerQuery->execute();
 
 
-        $statementOrderQuery->close();    
-        $statementCustomerQuery->close();
+    $statementOrderQuery->close();
+    $statementCustomerQuery->close();
 
-        return "Data berhasil dihapus";
-        
-    }
+    return "Data berhasil dihapus";
+  }
 
-    public function get_menu_by_category($kategori){
-        $getMenuQuery = "SELECT * FROM menu WHERE category = '$kategori'";
+  public function get_menu_by_category($kategori)
+  {
+    $getMenuQuery = "SELECT * FROM menu WHERE category = '$kategori'";
 
-        $data = mysqli_query($this->koneksi, $getMenuQuery);
-        return $data;
-    }
-
-    
-    
+    $data = mysqli_query($this->koneksi, $getMenuQuery);
+    return $data;
+  }
 }
