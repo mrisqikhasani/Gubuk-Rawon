@@ -57,7 +57,7 @@
                       ?>
                     </p>
                   </div>
-                  <form class="user" action="cek_login.php" method="POST">
+                  <form class="user" action="proses/cek_login.php" method="POST">
                     <div class="form-group">
                       <input type="text" name="username" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Username..." required>
                     </div>

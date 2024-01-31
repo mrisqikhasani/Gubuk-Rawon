@@ -40,7 +40,7 @@ $result = $db->post_order($customerData, $products);
 $message = $result;
 
 if($message == 'Success'){
-  header("location:layout/notification.php?message=$message");
+  header("location:../notification.php?message=$message");
 }
 
 

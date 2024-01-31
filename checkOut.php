@@ -212,65 +212,9 @@ include('header.php');
 <body>
   <!-- Start Reservation section -->
   <!-- <section id="mu-reservation"> -->
-  <form method="post" action="../chartProses.php" class="mu-reservation-form">
+  <form method="post" action="proses/chartProses.php" class="mu-reservation-form">
     <div class="container">
       <div class="row">
-        <!-- <div class="col-md-5 p-3">
-          <div class="myCart">
-            <div class="mu-title">
-              <h2>Keranjang Saya</h2>
-            </div>
-            <table class="cart-show table table-bordered">
-              <thead>
-                <th>Menu</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Sub Total</th>
-              </thead>
-              <tbody>
-                <?php
-                foreach ($_POST as $key => $value) {
-                  if (strpos($key, "productName_") === 0) {
-                    // Extract product ID from the key
-                    $productId = substr($key, strlen("productName_"));
-
-                    // Retrieve other product-related data
-                    $productName = $value;
-                    $productPrice = $_POST["productPrice_" . $productId];
-                    $productQuantity = $_POST["productQuantity_" . $productId];
-                    $subTotal = $_POST["subTotal_" . $productId];
-                ?>
-                    <tr>
-                      <td>
-                        <?= $_POST["productName_" . $productId] ?>
-                        <input type="hidden" name="productName_<?= $productId ?>" value="<?= $productName ?>">
-                      </td>
-                      <td>
-                        <?= $_POST["productPrice_" . $productId] ?>
-                        <input type="hidden" name="productPrice_<?= $productId ?>" value="<?= $productPrice ?>">
-                      </td>
-                      <td>
-                        <?= $_POST["productQuantity_" . $productId] ?>
-                        <input type="hidden" name="productQuantity_<?= $productId ?>" value="<?= $productQuantity ?>">
-                      </td>
-                      <td>
-                        <?= $_POST["subTotal_" . $productId] ?>
-                        <input type="hidden" name="subTotal_<?= $productId ?>" value="<?= $subTotal ?>">
-                      </td>
-                    </tr>
-                <?php
-                  }
-                }
-                ?>
-              </tbody>
-              <div>
-                <p>Total : <?= $_POST['total'] ?></p>
-                <input type="hidden" name="total" value="<?= $_POST['total'] ?>">
-              </div>
-            </table>
-          </div>
-        </div> -->
-
         <div class="col-md-5 p-3">
           <div class="myCart">
             <div class="mu-title">

@@ -282,23 +282,26 @@ class database
         WHERE customerID = ?;
         ";
 
-    $statementOrderQuery = $this->koneksi->prepare($deleteOrderQuery);
-    $statementOrderQuery->bind_param('i', $orderId);
+    try {
+      $statementOrderQuery = $this->koneksi->prepare($deleteOrderQuery);
+      $statementOrderQuery->bind_param('i', $orderId);
 
-    $statementOrderDetailQuery = $this->koneksi->prepare($deleteOrderDetailsQuery);
-    $statementOrderDetailQuery->bind_param('i', $orderId);
+      $statementOrderDetailQuery = $this->koneksi->prepare($deleteOrderDetailsQuery);
+      $statementOrderDetailQuery->bind_param('i', $orderId);
 
-    $statementCustomerQuery = $this->koneksi->prepare($deleteCustomerQuery);
-    $statementCustomerQuery->bind_param('i', $customerID);
+      $statementCustomerQuery = $this->koneksi->prepare($deleteCustomerQuery);
+      $statementCustomerQuery->bind_param('i', $customerID);
 
-    $statementOrderQuery->execute();
-    $statementCustomerQuery->execute();
+      $statementOrderQuery->execute();
+      $statementCustomerQuery->execute();
 
+      $statementOrderQuery->close();
+      $statementCustomerQuery->close();
 
-    $statementOrderQuery->close();
-    $statementCustomerQuery->close();
-
-    return "Data berhasil dihapus";
+      return "success";
+    } catch (Exception $e) {
+      return "error: " . $e->getMessage();
+    }
   }
 
   public function get_menu_by_category($kategori)

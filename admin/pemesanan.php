@@ -29,9 +29,8 @@ $result = $query->fetch_all(MYSQLI_ASSOC);
 							<th>Order ID</th>
 							<th>User</th>
 							<th>Item</th>
-							<th>Payment</th>
-							<th>Status</th>
-							<th>Datetime</th>
+							<th>Status Pemesanan</th>
+							<th>Status Payment</th>
 							<th>Alamat</th>
 							<th>Action</th>
 						</tr>
@@ -57,11 +56,47 @@ $result = $query->fetch_all(MYSQLI_ASSOC);
 									?>
 								</td>
 								<td>
-									<?= $value['paymentStatus'] ?>
+									<h5>
+										<?php
+										$orderStatus = $value['orderStatus'];
+										switch ($orderStatus) {
+											case 'Pending':
+												echo '<span class="badge badge-warning">' . $orderStatus . '</span>';
+												break;
+											case 'Proses':
+												echo '<span class="badge badge-info">' . $orderStatus . '</span>';
+												break;
+											case 'Selesai':
+												echo '<span class="badge badge-success">' . $orderStatus . '</span>';
+												break;
+											case 'Diantar':
+												echo '<span class="badge badge-primary">' . $orderStatus . '</span>';
+												break;
+											case 'Cancelled':
+												echo '<span class="badge badge-danger">' . $orderStatus . '</span>';
+												break;
+											default:
+												echo $orderStatus;
+										}
+										?>
+									</h5>
 								</td>
-								<td><?= $value['orderStatus'] ?></td>
 								<td>
-									<?= $value['orderDate'] ?>
+									<h5>
+										<?php
+										$paymentStatus = $value['paymentStatus'];
+
+										if ($paymentStatus == 'Pending') {
+											echo '<span class="badge badge-warning">' . $paymentStatus . '</span>';
+										} elseif ($paymentStatus == 'Paid') {
+											echo '<span class="badge badge-success">' . $paymentStatus . '</span>';
+										} elseif ($paymentStatus == 'Failed') {
+											echo '<span class="badge badge-danger">' . $paymentStatus . '</span>';
+										} else {
+											echo $paymentStatus;
+										}
+										?>
+									</h5>
 								</td>
 								<td>
 									<?= $value['address'] ?>
@@ -80,11 +115,11 @@ $result = $query->fetch_all(MYSQLI_ASSOC);
 								</td>
 							</tr>
 							<?php @include('layout/modalDetail.php') ?>
-							
-							<?php
+
+						<?php
 							$counter++;
 						endforeach;
-							?>
+						?>
 					</tbody>
 				</table>
 			</div>
