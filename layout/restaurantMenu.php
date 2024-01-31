@@ -197,6 +197,7 @@
           <div class="buttonChart">
             <button type="button" class="btn btn-danger btn-lg" id="buttonCart" data-toggle="modal" data-target="#Cart" style=" position: fixed; bottom: 20px; right: 20px; display: block;
 									">
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
               Cart
             </button>
           </div>

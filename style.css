@@ -25,7 +25,8 @@
 /* BASE - Base tyles, Variables, Mixins, etc. */
 body {
   background-color: #ffffff;
-  font-family: "Prata", serif;
+  /* font-family: "Prata", serif; */
+  font-family: Arial, Helvetica, sans-serif;
   color: #333333;
   font-size: 15px;
   overflow-x: hidden;

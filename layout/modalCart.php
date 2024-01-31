@@ -6,7 +6,7 @@
         <h4 class="modal-title">Keranjang</h4>
       </div>
       <div class="modal-body">
-        <form action="layout/checkOut.php" method="post">
+        <form action="checkOut.php" method="post">
 
           <table class="cart-show table table-bordered" width="100%">
             <thead>

@@ -455,7 +455,8 @@ $resultOthers = $db->get_menu_by_category('lain-lain')->fetch_all(MYSQLI_ASSOC);
       <div class="container">
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h6 class="copy-title"> Copyright &copy; 2017 Food Funday is powered by <a href="#" target="_blank"></a> </h6>
+            <h6 class="copy-title"> Copyright &copy; 2024 Gubuk Rawon </h6>
+            <!-- develop by risqi khasani -->
           </div>
         </div>
         <!-- end row -->

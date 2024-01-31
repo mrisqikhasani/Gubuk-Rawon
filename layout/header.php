@@ -8,23 +8,23 @@
   <title>GUBUK RAWON</title>
 
   <!-- Favicon -->
-  <link rel="shortcut icon" href="../assets/img/about-us/logo 3.png" type="image/x-icon">
+  <link rel="shortcut icon" href="assets/img/about-us/logo 3.png" type="image/x-icon">
 
   <!-- Font awesome -->
-  <link href="../assets/css/font-awesome.css" rel="stylesheet">
+  <link href="assets/css/font-awesome.css" rel="stylesheet">
   
-  <link href="../assets/css/bootstrap.css" rel="stylesheet">
+  <link href="assets/css/bootstrap.css" rel="stylesheet">
   <!-- Slick slider -->
-  <link rel="stylesheet" type="text/css" href="../assets/css/slick.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/slick.css">
   <!-- Date Picker -->
-  <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap-datepicker.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-datepicker.css">
   <!-- Fancybox slider -->
-  <link rel="stylesheet" href="../assets/css/jquery.fancybox.css" type="text/css" media="screen" />
+  <link rel="stylesheet" href="assets/css/jquery.fancybox.css" type="text/css" media="screen" />
   <!-- Theme color -->
-  <link id="switcher" href="../assets/css/theme-color/default-theme.css" rel="stylesheet">
+  <link id="switcher" href="assets/css/theme-color/default-theme.css" rel="stylesheet">
 
   <!-- Main style sheet -->
-  <link href="../style.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
 
 
   <!-- Google Fonts -->

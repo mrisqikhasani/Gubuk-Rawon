@@ -1,5 +1,5 @@
 <?php
-include('header.php');
+include('layout/header.php');
 ?>
 <style>
   body{
@@ -314,7 +314,7 @@ include('header.php');
                 <div class="mb-3 row">
                   <br>
                   <div class="buttonInCustomer" style="display: inline;">
-                    <a href="../index.php" class="btn btn-light">Kembali</a>
+                    <a href="index.php" class="btn btn-light">Kembali</a>
                   <button type="button" class="btn btn-primary" id="buttonConfirmationCustomer" data-toggle="modal" data-target="#confirmation">Confirm</button>
                   </div>
                 </div>
@@ -354,5 +354,5 @@ include('header.php');
   </form>
 
   <?php
-  include('footer.php');
+  include('layout/footer.php');
   ?>
