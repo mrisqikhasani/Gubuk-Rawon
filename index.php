@@ -88,9 +88,9 @@ $resultOthers = $db->get_menu_by_category('lain-lain')->fetch_all(MYSQLI_ASSOC);
           <ul id="top-menu" class="nav navbar-nav navbar-right mu-main-nav">
             <li><a href="#mu-slider">BERANDA</a></li>
             <li><a href="#mu-about-us">TENTANG KAMI</a></li>
-            <li><a href="#mu-reservation">RESERVASI</a></li>
-            <li><a href="#mu-contact">KONTAK</a></li>
+            <!-- <li><a href="#mu-reservation">RESERVASI</a></li> -->
             <li><a href="#mu-restaurant-menu">MENU</a></li>
+            <li><a href="#mu-contact">KONTAK</a></li>
             <li><a href="login.php" class="btn btn-primary">LOGIN</a></li>
             <li class="dropdown">
           </ul>
