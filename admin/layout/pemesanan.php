@@ -8,8 +8,6 @@ $db = new database();
 $query = $db->get_orders_by_customer();
 $result = $query->fetch_all(MYSQLI_ASSOC);
 
-
-
 ?>
 
 <div class="container-fluid">

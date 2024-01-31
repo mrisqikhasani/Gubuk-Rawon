@@ -12,7 +12,7 @@ session_unset();
 session_destroy();
 
 // arahkan halaman login
-header('location:../login.php?pesan=logout');
+header('location:../../login.php?pesan=logout');
 exit;
 
 ?>

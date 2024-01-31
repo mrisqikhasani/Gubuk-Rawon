@@ -4,7 +4,7 @@
 // var_dump($pass);
 // die;
 
-include("koneksi.php");
+include("../koneksi.php");
 
 $db = new database();
 
@@ -38,7 +38,7 @@ if (isset($_SESSION['$username']) || isset($_SESSION['userId'])) {
 
           $_SESSION['username'] = $username;
           $_SESSION['userId'] = $getData['userId'];
-          header('location:admin/index.php');
+          header('location:../admin/index.php');
         } else {
           header("location:login.php?pesan=gagal");
         }
