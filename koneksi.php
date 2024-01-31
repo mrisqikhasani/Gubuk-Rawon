@@ -71,7 +71,7 @@ class database
   public function get_orders_customer_by_id($orderId)
   {
     $query = "
-                SELECT
+          SELECT
             Customer.customerID,
             Customer.name,
             Customer.email,
@@ -134,7 +134,7 @@ class database
 
     // insert into orders
     $insertOrdersQuery = "
-        INSERT INTO orders(customerID, totalAmout, paymentMethod) VALUES (?, ?, ?);
+        INSERT INTO orders(customerID, totalAmount, paymentMethod) VALUES (?, ?, ?);
         ";
     $ordersStmt = $this->koneksi->prepare($insertOrdersQuery);
     $ordersStmt->bind_param('ids', $customerID, $customerData['total'], $customerData['metodePembayaran']);
@@ -143,21 +143,28 @@ class database
     $ordersStmt->close();
 
     // insert into OrderSDetails
-    $insertOrdersDetail = "
-        INSERT INTO orderDetail(orderID, menuID, quantity, subtotal) VALUES(?, ?, ?, ?);
-        ";
+    $insertOrdersDetail = "INSERT INTO orderDetail(orderID, menuID, quantity, subtotal) VALUES(?, ?, ?, ?)";
     $orderDetailsStmt = $this->koneksi->prepare($insertOrdersDetail);
 
     foreach ($products as $productKey => $product) {
-      if (strpos($productKey, "productName_") === 0) {
-        $productID = substr($productKey, strlen("productName_"));
-        $quantity = $products["productQuantity_$productID"];
-        $price = $products["productPrice_$productID"];
+      // if (strpos($productKey, "productName_") === 0) {
+      //   $productID = substr($productKey, strlen("productName_"));
+      //   $quantity = $product["productQuantity_$productID"]; // Adjust here
+      //   $price = $product["productPrice_$productID"]; // Adjust here
 
-        $orderDetailsStmt->bind_param('iiid', $ordersID, $productID, $quantity, $price);
-        $orderDetailsStmt->execute();
+
+      $productID = $product['productID'];
+      $quantity = $product['productQuantity'];
+      // $price = $product['productPrice'];
+      $subtotal = $product['subTotal'];
+      // Assuming $ordersID is defined elsewhere in your code
+      $orderDetailsStmt->bind_param('iiid', $ordersID, $productID, $quantity, $subtotal);
+      if (!$orderDetailsStmt->execute()) {
+        echo "Error: " . $orderDetailsStmt->error;
+        // }
       }
     }
+
     $orderDetailsStmt->close();
     return "Success";
   }

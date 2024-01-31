@@ -17,7 +17,6 @@
               <th>Action</th>
             </thead>
             <tbody id="cart-items">
-              <p>Tidak Ada Item Di Keranjang, tolong tambahkan item ke cart </p>
 
             </tbody>
           </table>

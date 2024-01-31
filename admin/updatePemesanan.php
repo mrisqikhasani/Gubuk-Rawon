@@ -12,15 +12,19 @@ if (isset($_GET['orderId'])) {
   header("location:index.php");
 }
 
+// var_dump($result);
+// die;
+
 ?>
 
 <!-- container -->
 <div class="container-fluid">
+  <a href="index.php" class="btn btn-primary btn-lg float-right">Kembali</a>
   <form action="request/updateOrder.php?orderId=<?= $orderId ?>" method="post" id="updateForm" onSubmit="return confirmUpdateForm()">
     <h1 class="h3 m-5 text-gray-800">Update</h1>
     <div class="card shadow mb-4">
       <div class="card-body">
-
+        
         <!-- Customer Details -->
         <div class="align-item-center row">
           <div class="col-8">
@@ -78,11 +82,15 @@ if (isset($_GET['orderId'])) {
               $menuIdArray = explode(',', $result['menuID']);
               $quantityArray = explode(', ', $result['quantities']);
               $priceArray = explode(', ', $result['prices']);
-              $subtotalEdit = $result['totalAmount'];
+              $totalEdit = 0; 
+              // $totalEdit = $result['totalAmount']; 
+              // 
+              
 
               for ($i = 0; $i < count($menuArray); $i++) :
                 $subTotalItem = $quantityArray[$i] * $priceArray[$i];
-                $subtotalEdit += $subTotalItem;
+                $totalEdit += $subTotalItem;
+                
               ?>
                 <li class="justify-content-between list-group-item" style="display:inline;" data-itemindex="<?= $i ?>">
                   <div class="items-orders">
@@ -100,7 +108,7 @@ if (isset($_GET['orderId'])) {
                     </div>
                     <div class="col-2">
                       <label for="subtotal">Sub Total</label>
-                      <input type="text" class="form-control" name="subtotal-items[]" value="<?= $subTotalItem ?>" readonly>
+                      <input type="text" class="form-control" name="subtotal-items[]" value="<?= number_format($subTotalItem, 3, '.', "");?>" readonly>
                     </div>
                   </div>
                 </li>
@@ -118,7 +126,7 @@ if (isset($_GET['orderId'])) {
                     Total Harga
                   </div>
                   <div class="col-lg-3">
-                    <input type="text" class="form-control" name="totalHargaEdit" style="float:right" value="<?= $subtotalEdit ?>" readonly>
+                    <input type="text" class="form-control" name="totalHargaEdit" style="float:right" value="<?= number_format($totalEdit, 3, '.', "") ?>" readonly>
                   </div>
                 </div>
               </li>
@@ -126,11 +134,14 @@ if (isset($_GET['orderId'])) {
           </div>
           <div class="col-lg-8 mt-4">
             <label for="paymentMethod">Payment Method</label>
-            <select class="form-control" name="paymentMethod" id="selectPaymentMethod" required>
+            <!-- <select class="form-control" name="paymentMethod" id="selectPaymentMethod" required>
               <option value="notvalue" disabled selected>---</option>
               <option value="COD">COD</option>
               <option value="Bank Transfer">Bank Transfer</option>
-            </select>
+            </select> -->
+            <br>
+            <input type="radio" name="paymentMethod" <?=($result['paymentMethod'] == 'COD')?'checked':'' ?>> COD <br>
+            <input type="radio" name="paymentMethod" <?=($result['paymentMethod'] == 'Bank Transfer')?'checked':'' ?>> Bank Transfer <br>
           </div>
           <div class="col-lg-8 mt-4">
             <label for="statusPayment">Payment Status</label>

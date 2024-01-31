@@ -4,7 +4,7 @@ include('koneksi.php');
 $db = new database();
 
 
-var_dump($_POST);
+// var_dump($_POST);
 
 $postedData = $_POST;
 // aray to save customer data and total
@@ -34,7 +34,13 @@ foreach ($postedData as $key => $value) {
   }
 }
 
-$result = $db->post_order($customerData, $product);
+// print_r($products);
+
+$result = $db->post_order($customerData, $products);
 $message = $result;
 
-header("location:layout/notification.php?message=$message");
+if($message == 'Success'){
+  header("location:layout/notification.php?message=$message");
+}
+
+

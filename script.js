@@ -126,6 +126,8 @@ function decreaseQuantity(productId) {
   if (product && product.quantity > 1) {
     product.quantity -= 1;
     updateCartDisplay();
+  } else {
+    console.log('You had minimun quantity')
   }
 }
 
