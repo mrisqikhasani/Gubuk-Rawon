@@ -13,10 +13,11 @@ $result = $query->fetch_all(MYSQLI_ASSOC);
 <div class="container-fluid">
 	<!-- Page Heading -->
 	<h1 class="h3 mb-2 text-gray-800">Orderan</h1>
-
+	
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
+			<a href="insertPemesanan.php" class="btn btn-primary float-right">Tambah Pesanan</a>
 			<h6 class="m-0 font-weight-bold text-primary">Data Order</h6>
 		</div>
 		<div class="card-body">

@@ -8,9 +8,6 @@ $db = new database();
 $query = $db->get_all_order();
 $results = $query->fetch_all(MYSQLI_ASSOC);
 
-// var_dump($query);
-// die;
-
 ?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -21,11 +18,12 @@ $results = $query->fetch_all(MYSQLI_ASSOC);
     if (isset($_GET['message'])) {
       if ($_GET['message'] == 'DeleteSuccessfully') {
         echo "<p class='alert alert-success'>Pesanan berhasil dihapus</p> <br>";
+      } else if($_GET['message'] == 'insertSuccessfully') {
+        echo "<p class='alert alert-success'>Pesanan berhasil ditambahkan</p> <br>";
       }
     }
     ?>
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
   </div>
 
   <?php

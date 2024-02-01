@@ -114,7 +114,7 @@
                   $itemsPerRow = 3;
                   $counter = 0;
                   foreach ($resultMinuman as $row) {
-                    // Buka div row setiap awal baris
+                    
                     if ($counter % $itemsPerRow == 0) {
                       echo "<div class='row'>";
                     }

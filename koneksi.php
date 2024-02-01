@@ -304,6 +304,16 @@ class database
     }
   }
 
+
+  
+  public function get_all_menu()
+  {
+    $getMenuQuery = "SELECT * FROM menu";
+
+    $data = mysqli_query($this->koneksi, $getMenuQuery);
+    return $data;
+  }
+  
   public function get_menu_by_category($kategori)
   {
     $getMenuQuery = "SELECT * FROM menu WHERE category = '$kategori'";

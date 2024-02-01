@@ -1,5 +1,5 @@
 <?php
-include('layout/header.php');
+include("layout/header.php");
 ?>
 <!-- Bootstrap -->
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous"> -->
@@ -72,18 +72,23 @@ include('layout/header.php');
       <div class="card-body">
         <h2 class="card-title">Pesanan Anda Berhasil</h2>
         <p class="card-text">Terima kasih atas pesanan Anda. Kami akan segera memprosesnya.</p>
-        <p class="card-text note">Jika Anda membayar dengan transfer bank, agar pesanan kami dapat proses, silahkan transfer ke rekening berikut</p>
+        <p class="card-text note">Jika Anda membayar dengan metode transfer bank, agar pesanan anda kami proses, silahkan transfer ke rekening berikut</p>
         <ul class="bank-info">
           <li><strong>Bank:</strong> Bank ABC</li>
           <li><strong>Nomor Rekening:</strong> 1234-5678-9012</li>
           <li><strong>Atas Nama:</strong> Nama Anda</li>
         </ul>
-        <p class="card-text note">Setelah melakukan transfer, konfirmasikan ke nomor WhatsApp kami: <strong>+6281234567890</strong></p>
+        <p class="card-text note">Setelah melakukan transfer, Silahkan konfirmasikan ke nomor WhatsApp kami: <strong>+6281234567890</strong>
+        <br>
+        <br>
+        Jika tidak melakukan konfirmasi, pesanan anda tidak akan kami proses
+      </p>
+        
         <a href="../index.php" class="btn btn-primary">Kembali ke Halaman Utama </a>
       </div>
     </div>
   </div>
 
   <?php
-  include('layout/footer.php');
+  include("layout/footer.php");
   ?>

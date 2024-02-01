@@ -163,23 +163,15 @@ $resultOthers = $db->get_menu_by_category('lain-lain')->fetch_all(MYSQLI_ASSOC);
               <span class="mu-title-bar"></span>
             </div>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="mu-about-us-left">
-                  <p>Gubuk Rawon merupakan rumah makan khas Jawa Timur yang lokasinya berada di Provinsi Jawa Barat yang tepatnya di daerah Depok.
-                    Rumah makan ini buka dari tahun 2020, dimana pemilik dari rumah makan ini adalah orang asli dari Jawa Timur yaitu Malang.
-                  </p>
-                  <ul>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia.</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
-                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia.</li>
-                  </ul>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque similique molestias est quod reprehenderit, quibusdam nam qui, quam magnam. Ex.</p>
+                <p style="font-size: 18px; line-height: 2.0; text-align:center;">
+                Selamat datang di Gubuk Rawon, tempat lezat dengan cita rasa khas Jawa Timur di Depok, Jawa Barat. Berdiri sejak 2020, kami membawa kelezatan hidangan khas Jawa Timur, terutama rawon.
+                Nikmati pengalaman kuliner autentik di tempat atau pesan hidangan favorit Anda dalam jumlah besar melalui layanan pemesanan online di halaman website kami. Kami siap memberikan kelezatan Gubuk Rawon tanpa harus meninggalkan kenyamanan rumah Anda. Segera pesan dan nikmati hidangan istimewa kami. Selamat menikmati!
+                </p>
                 </div>
               </div>
-              <div class="col-md-6">
+              <!-- <div class="col-md-6">
                 <div class="mu-about-us-right">
                   <ul class="mu-abtus-slider">
                     <li><img src="assets/img/about-us/abtus-img-1.png" alt="img"></li>
@@ -187,9 +179,10 @@ $resultOthers = $db->get_menu_by_category('lain-lain')->fetch_all(MYSQLI_ASSOC);
                     <li><img src="assets/img/about-us/abtus-img-6.png" alt="img"></li>
                     <li><img src="assets/img/about-us/abtus-img-4.png" alt="img"></li>
                     <li><img src="assets/img/about-us/abtus-img-5.png" alt="img"></li>
+                    <li style="border-radius: 50%;"><img src="assets/img/about-us/abtus-img-5.png" alt="img"></li>
                   </ul>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
