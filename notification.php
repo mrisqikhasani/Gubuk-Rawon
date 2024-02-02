@@ -84,7 +84,7 @@ include("layout/header.php");
         Jika tidak melakukan konfirmasi, pesanan anda tidak akan kami proses
       </p>
         
-        <a href="../index.php" class="btn btn-primary">Kembali ke Halaman Utama </a>
+        <a href="index.php" class="btn btn-primary">Kembali ke Halaman Utama </a>
       </div>
     </div>
   </div>

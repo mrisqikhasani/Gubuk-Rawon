@@ -173,7 +173,7 @@
                             </div>
                             <div class='media-body menu' data-id='<?= $row['menuID'] ?>' data-name='<?= $row['menuName'] ?>' data-price='<?= $row['price'] ?>'>
                               <h4 class='media-heading'><?= $row['menuName'] ?></h4>
-                              <span class='mu-menu-price'><?= $row['price'] ?></span>
+                              <span class='mu-menu-price'>Rp <?= $row['price'] ?></span>
                               <p><?= $row['description'] ?></p>
                               <button class='btn btn-primary'>Add To Cart</button>
                             </div>

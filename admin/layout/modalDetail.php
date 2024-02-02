@@ -103,11 +103,11 @@
 										echo "<li class='justify-content-between list-group-item'>
                                                 <p> 
                                                     {$quantityArray[$i]}x {$menuArray[$i]}
-                                                    {$priceArray[$i]}
+                                                    ".number_format($priceArray[$i], 3, '.',"")."
                                                     <span style='float:right'>
                                                     Sub Total :
-                                                    {$subTotalItem}
-                                                    </span>
+                                                    ".number_format($subTotalItem, 3, '.', "")
+                                                    ."</span>
                                                 </p>
                                                 </li>";
 									}
@@ -120,7 +120,7 @@
 									<li class="justify-content-between list-group-item">
 										Total
 										<span style="float:right">
-											Rp <?= $subtotal ?>
+											Rp <?= number_format($subtotal, 3, '.', "") ?>
 										</span>
 									</li>
 								</ul>

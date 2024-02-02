@@ -12,7 +12,7 @@ $db = new database();
 session_start();
 
 if (isset($_SESSION['$username']) || isset($_SESSION['userId'])) {
-  header("location: admin/index.php");
+  header("location:../admin/index.php");
 } else {
   if (isset($_POST['submit'])) {
 
