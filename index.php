@@ -115,7 +115,7 @@ $resultOthers = $db->get_menu_by_category('lain-lain')->fetch_all(MYSQLI_ASSOC);
             <span class="mu-slider-small-title">Selamat Datang</span>
             <h2 class="mu-slider-title">GUBUK RAWON</h2>
             <p>Rumah makan dengan masakan khas Jawa Timur..</p>
-            <a href="#mu-reservation" class="mu-readmore-btn">PESAN RESERVASI</a>
+            <a href="#mu-restaurant-menu" class="mu-readmore-btn">PESAN SEKARANG</a>
           </div>
           <!-- / Top slider content -->
         </div>
@@ -125,10 +125,10 @@ $resultOthers = $db->get_menu_by_category('lain-lain')->fetch_all(MYSQLI_ASSOC);
           <img src="assets/img/slider/slide1.jpeg" alt="img">
           <!-- Top slider content -->
           <div class="mu-top-slider-content">
-            <span class="mu-slider-small-title">The Real</span>
-            <h2 class="mu-slider-title">GREEN FOODS</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque voluptatem accusamus non quidem, deleniti optio.</p>
-            <a href="#" class="mu-readmore-btn">READ MORE</a>
+            <span class="mu-slider-small-title">Selamat Menikmati</span>
+            <h2 class="mu-slider-title">SAJIAN ISTIMEWA</h2>
+            <p>Rasakan setiap sentuhan cita rasa autentik yang memikat lidah. Setiap hidangan adalah undangan untuk merayakan keanekaragaman sensasi rasa bersama kami.</p>
+            <a href="#mu-restaurant-menu" class="mu-readmore-btn">PESAN SEKARANG</a>
           </div>
           <!-- / Top slider content -->
         </div>
@@ -138,10 +138,10 @@ $resultOthers = $db->get_menu_by_category('lain-lain')->fetch_all(MYSQLI_ASSOC);
           <img src="assets/img/slider/menu2.jpeg" alt="img">
           <!-- Top slider content -->
           <div class="mu-top-slider-content">
-            <span class="mu-slider-small-title">Delicious</span>
-            <h2 class="mu-slider-title">SPICY MASALAS</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque voluptatem accusamus non quidem, deleniti optio.</p>
-            <a href="#" class="mu-readmore-btn">READ MORE</a>
+            <span class="mu-slider-small-title">Selamat Mencoba</span>
+            <h2 class="mu-slider-title">JELAJAHI KELEZATAN</h2>
+            <p>Undang lidahmu untuk menari dalam harmoni cita rasa dan sambut alunan kenikmatan cita rasa yang tak terlupakan bersama kami.</p>
+            <a href="#mu-restaurant-menu" class="mu-readmore-btn">PESAN SEKARANG</a>
           </div>
           <!-- / Top slider content -->
         </div>
