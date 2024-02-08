@@ -13,12 +13,12 @@ $result = $query->fetch_all(MYSQLI_ASSOC);
 <div class="container-fluid">
 	<!-- Page Heading -->
 	<h1 class="h3 mb-2 text-gray-800">Orderan</h1>
-	
+
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
 			<a href="insertPemesanan.php" class="btn btn-primary float-right">Tambah Pesanan</a>
-			<h6 class="m-0 font-weight-bold text-primary">Data Order</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Semua Data Order</h6>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -30,18 +30,15 @@ $result = $query->fetch_all(MYSQLI_ASSOC);
 							<th>Item</th>
 							<th>Status Pemesanan</th>
 							<th>Status Payment</th>
-							<th>Alamat</th>
+							<!-- <th>Alamat</th> -->
+							<th>Tipe Order</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php
 						$counter = 1;
-						foreach ($result as $value) : 
-						
-							// var_dump($value['orderID']);
-							// die;
-						
+						foreach ($result as $value) :
 						?>
 							<tr>
 								<td><?= $value['orderID'] ?></td>
@@ -102,8 +99,24 @@ $result = $query->fetch_all(MYSQLI_ASSOC);
 										?>
 									</h5>
 								</td>
-								<td>
+								<!-- <td>
 									<?= $value['address'] ?>
+								</td> -->
+								<td>
+									<h5>
+										<?php
+
+										$orderTypes = $value['orderType'];
+										if ($orderTypes == 'Online'){
+											echo '<span class="badge badge-info">'.$orderTypes.'</span>';
+										} elseif ($orderTypes == "Offline") {
+											echo '<span class="badge badge-primary">'.$orderTypes.'</span>';
+										} else {
+											echo $orderTypes;
+										}
+										
+										?>
+									</h5>
 								</td>
 								<td>
 									<a href="#viewDetail<?= $counter ?>" class="btn btn-info" data-toggle="modal" data-target="#viewDetail<?= $counter ?>">

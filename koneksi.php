@@ -54,6 +54,7 @@ class database
             Orders.status AS orderStatus,
             Orders.paymentStatus,
             Orders.paymentMethod,
+            Orders.orderType,
             GROUP_CONCAT(Menu.menuName SEPARATOR ', ') AS menuNames,
             GROUP_CONCAT(OrderDetail.quantity SEPARATOR ', ') AS quantities,
             GROUP_CONCAT(Menu.price SEPARATOR ', ') AS prices

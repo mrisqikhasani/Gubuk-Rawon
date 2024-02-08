@@ -87,6 +87,20 @@
 								?>
 							</h4>
 							<div class="col-lg-12">
+								<h5>
+									<?php
+
+									$orderTypes = $value['orderType'];
+									if ($orderTypes == 'Online') {
+										echo 'Tipe Pesanan : <span class="badge badge-info">' . $orderTypes . '</span>';
+									} elseif ($orderTypes == "Offline") {
+										echo 'Tipe Pesanan : <span class="badge badge-primary">' . $orderTypes . '</span>';
+									} else {
+										echo $orderTypes;
+									}
+
+									?>
+								</h5>
 								<br>
 								<p>Order Date: <?= $value['orderDate'] ?></p>
 								<label for="">Items</label>
@@ -103,11 +117,11 @@
 										echo "<li class='justify-content-between list-group-item'>
                                                 <p> 
                                                     {$quantityArray[$i]}x {$menuArray[$i]}
-                                                    ".number_format($priceArray[$i], 3, '.',"")."
+                                                    " . number_format($priceArray[$i], 3, '.', "") . "
                                                     <span style='float:right'>
                                                     Sub Total :
-                                                    ".number_format($subTotalItem, 3, '.', "")
-                                                    ."</span>
+                                                    " . number_format($subTotalItem, 3, '.', "")
+											. "</span>
                                                 </p>
                                                 </li>";
 									}
@@ -130,16 +144,16 @@
 								<ul class="list-group">
 									<li class="justify-content-between list-group-item">
 										Payment Method
-										<?php 
-											$paymentMethod = $value['paymentMethod'];
+										<?php
+										$paymentMethod = $value['paymentMethod'];
 
-											if($paymentMethod == 'COD') {
-												echo '<span class="badge badge-info" style="float: right;">' . $paymentMethod . '</span>';
-											} elseif($paymentMethod == 'Bank Transfer'){
+										if ($paymentMethod == 'COD') {
+											echo '<span class="badge badge-info" style="float: right;">' . $paymentMethod . '</span>';
+										} elseif ($paymentMethod == 'Bank Transfer') {
 											echo '<span class="badge badge-secondary" style="float: right;">' . $paymentMethod . '</span>';
-											} else {
-												echo $paymentMethod;
-											}
+										} else {
+											echo $paymentMethod;
+										}
 										?>
 									</li>
 									<li class="justify-content-between list-group-item">
