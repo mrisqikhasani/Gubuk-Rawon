@@ -3,16 +3,25 @@ include('../koneksi.php');
 
 $db = new database();
 
+// $address = $_POST['kelurahan']. ','.$_POST['kecamatan'] .','. $_POST['kota'];
+
+$alamat = $_POST['catatan'];
+$alamat .= ", Kelurahan ". $_POST['kelurahan']. ", ";
+$alamat .= "Kecamatan ".$_POST['kecamatan']. ", ";
+$alamat .= "Kota ". $_POST['kota']. ', ';
+$alamat .= "Jawa Barat";
+
+// var_dump($alamat);
 
 // var_dump($_POST);
-
+// die;
 $postedData = $_POST;
 // aray to save customer data and total
 $customerData = [
   'name' => $postedData['name'],
   'phoneNumber' => $postedData['phoneNumber'],
   'email' => $postedData['email'],
-  'address' => $postedData['address'],
+  'address' => $alamat,
   'total' => $postedData['total'],
   'metodePembayaran'=> $postedData['metodePembayaran'],
 ];

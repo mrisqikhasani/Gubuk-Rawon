@@ -1,0 +1,113 @@
+{
+  "Depok": [
+    {
+      "kecamatan": "Beji",
+      "kelurahan": [
+        "Beji",
+        "Beji Timur",
+        "Kemiri Muka",
+        "Kukusan",
+        "Pondok Cina",
+        "Tanah Baru"
+      ]
+    },
+    {
+      "kecamatan": "Pancoran Mas",
+      "kelurahan": [
+        "Pancoran Mas",
+        "Depok",
+        "Depok Jaya",
+        "Mampang",
+        "Rangkapan Jaya",
+        "Rangkapan Jaya Baru"
+      ]
+    },
+    {
+      "kecamatan": "Cipayung",
+      "kelurahan": [
+        "Cipayung Jaya",
+        "Ratu Jaya",
+        "Pondok Jaya",
+        "Bojong Pondok Terong"
+      ]
+    },
+    {
+      "kecamatan": "Sukmajaya",
+      "kelurahan": [
+        "Sukmajaya",
+        "Abadijaya",
+        "Baktijaya",
+        "Mekarjaya",
+        "Tirtajaya",
+        "Cisalak"
+      ]
+    },
+    {
+      "kecamatan": "Cimanggis",
+      "kelurahan": [
+        "Tugu",
+        "Mekarsari",
+        "Harjamukti",
+        "Curug",
+        "Cisalak Pasar",
+        "Pasir Gunung Selatan"
+      ]
+    },
+    {
+      "kecamatan": "Cilodong",
+      "kelurahan": [
+        "Cilodong",
+        "Jatimulya",
+        "Kalibaru",
+        "Kalimulya",
+        "Sukamaju"
+      ]
+    },
+    {
+      "kecamatan": "Tapos",
+      "kelurahan": [
+        "Tapos",
+        "Cilangkap",
+        "Sukatani",
+        "Leuwinanggung",
+        "Sukamaju Baru",
+        "Cimpaeun",
+        "Jatijajar"
+      ]
+    },
+    {
+      "kecamatan": "Limo",
+      "kelurahan": [
+        "Limo",
+        "Grogol",
+        "Krukut",
+        "Meruyung"
+      ]
+    },
+    {
+      "kecamatan": "Sawangan",
+      "kelurahan": [
+        "Sawangan",
+        "Sawangan Baru",
+        "Bedahan",
+        "Cinangka",
+        "Pasir Putih",
+        "Pengasinan",
+        "Kedaung"
+      ]
+    },
+    {
+      "kecamatan": "Bojongsari",
+      "kelurahan": [
+        "Bojongsari",
+        "Bojongsari Baru",
+        "Curug",
+        "Pondok Petir",
+        "Serua",
+        "Duren Seribu",
+        "Duren Mekar"
+      ]
+    }
+
+  ]
+}

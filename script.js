@@ -139,3 +139,87 @@ function removeItem(productId) {
 
   updateCartDisplay();
 }
+
+// function untuk memanggil data
+function fetchDataAlamat(callback) {
+  //Menggambil data kecamatan dan kelurahan 
+  fetch('data/dataAlamat.json')
+    .then(response => response.json())
+    .then(data => {
+      callback(data);
+    })
+    .catch(error => {
+      console.error('Error: ', error);
+    });
+}
+
+function populateKecamatan() {
+  var kota = document.getElementById("kota").value;
+  var kecamatanSelect = document.getElementById("kecamatan");
+
+  // Hapus opsi kecamatan sebelumnya
+  kecamatanSelect.innerHTML = '<option value="">Pilih Kecamatan</option>';
+
+  // panggil data pada function FetchDataAlamat
+  fetchDataAlamat(function(dataAlamat) {
+      // Tambahkan opsi kecamatan berdasarkan kota yang dipilih
+      if (kota === "Depok") {
+          dataAlamat['Depok'].forEach(function(kecamatanData) {
+              var option = document.createElement("option");
+              option.text = kecamatanData.kecamatan;
+              option.value = kecamatanData.kecamatan;
+              kecamatanSelect.add(option);
+          });
+      } else if (kota === "Surabaya") {
+          // Jika kota adalah Surabaya, tambahkan kecamatan Surabaya
+          var kecamatans = ["Tegalsari", "Genteng", "Wonokromo"];
+          kecamatans.forEach(function(kecamatan) {
+              var option = document.createElement("option");
+              option.text = kecamatan;
+              option.value = kecamatan;
+              kecamatanSelect.add(option);
+          });
+      }
+
+      // Aktifkan list box kecamatan
+      kecamatanSelect.disabled = false;
+  });
+}
+
+function populateKelurahan() {
+  var kota = document.getElementById("kota").value;
+  var kecamatan = document.getElementById("kecamatan").value;
+  var kelurahanSelect = document.getElementById("kelurahan");
+
+  // Hapus opsi kelurahan sebelumnya
+  kelurahanSelect.innerHTML = '<option value="">Pilih Kelurahan</option>';
+
+  // panggil data pada function FetchDataAlamat
+  fetchDataAlamat(function(dataAlamat) {
+      // Temukan data kecamatan yang sesuai
+      var kecamatanData = dataAlamat[kota].find(function(data) {
+          return data.kecamatan === kecamatan;
+      });
+
+      // Tambahkan opsi kelurahan berdasarkan data kecamatan yang dipilih
+      if (kecamatanData) {
+          kecamatanData.kelurahan.forEach(function(kelurahan) {
+              var option = document.createElement("option");
+              option.text = kelurahan;
+              option.value = kelurahan;
+              kelurahanSelect.add(option);
+          });
+      }
+
+      // Aktifkan list box kelurahan
+      kelurahanSelect.disabled = false;
+  });
+}
+
+
+function enableRT() {
+  var rt_Input = document.getElementById("rt");
+  var rw_Input = document.getElementById("rw");
+  rt_Input.disabled = false;
+  rw_Input.disabled = false;
+}

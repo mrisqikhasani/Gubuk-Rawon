@@ -2,7 +2,7 @@
 include('layout/header.php');
 ?>
 <style>
-  body{
+  body {
     background-color: #e4e4e4;
   }
 
@@ -206,6 +206,33 @@ include('layout/header.php');
   .btn-primary:hover {
     background-color: #0056b3;
   }
+
+
+  /* styke for listbox */
+
+  select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  select option {
+    padding: 8px 12px;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
 </style>
 
 
@@ -299,8 +326,44 @@ include('layout/header.php');
                   <input type="email" class="form-control" name="email" id="email" placeholder="Email anda" requried>
                 </div>
                 <div class="mb-3 row">
-                  <label for="address" class="form-label">Isikan alamat anda</label>
-                  <textarea name="address" class="form-control" cols="10" required></textarea>
+                  <?php
+                  ?>
+
+                  <label class="form-label">Alamat</label>
+                  <p>Hanya menerima pesanan sekitar kota Depok</p>
+
+                  <label for="kota">Kota:</label>
+                  <select name="kota" id="kota" onchange="populateKecamatan()">
+                    <option value="">Pilih Kota</option>
+                    <option value="Depok">Depok</option>
+                    <!-- Tambahkan pilihan kota lainnya di sini -->
+                  </select>
+                  <br>
+
+                  <label for="kecamatan">Kecamatan:</label>
+                  <select name="kecamatan" id="kecamatan" onchange="populateKelurahan()">
+                    <option value="">Pilih Kecamatan</option>
+                    <!-- Opsi akan diisi dengan JavaScript -->
+                  </select>
+                  <br>
+
+                  <label for="kelurahan">Kelurahan: </label>
+                  <select name="kelurahan" id="kelurahan" onchange="enableRT()">
+                    <option value="">Pilih Kelurahan</option>
+                  </select>
+                  <br>
+
+                  <!-- <label for="rt">RT:</label>
+                  <input type="text" id="rt" disabled>
+                  <br>
+                  <label for="rw">RW:</label>
+                  <input type="text" id="rw" disabled> -->
+
+                  <label for="catatan">Catatan Alamat:</label>
+                  <textarea id="catatan" name="catatan" rows="4" cols="50" placeholder="Contoh Jln. Cempaka No 1 RT 01 RW 08..."></textarea>
+
+                  <!-- <label for="address" class="form-label">Isikan alamat anda</label>
+                  <textarea name="address" class="form-control" cols="10" required></textarea> -->
                 </div>
                 <div class="mb-3 row">
                   <label for="address" class="form-label">Metode Pembayaran</label>
@@ -315,7 +378,7 @@ include('layout/header.php');
                   <br>
                   <div class="buttonInCustomer" style="display: inline;">
                     <a href="index.php" class="btn btn-light">Kembali</a>
-                  <button type="button" class="btn btn-primary" id="buttonConfirmationCustomer" data-toggle="modal" data-target="#confirmation">Confirm</button>
+                    <button type="button" class="btn btn-primary" id="buttonConfirmationCustomer" data-toggle="modal" data-target="#confirmation">Confirm</button>
                   </div>
                 </div>
               </div>
