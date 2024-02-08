@@ -1,5 +1,7 @@
 <?php
-@include('../koneksi.php');
+session_start();
+
+include('../koneksi.php');
 include("layout/navbar.php");
 
 $db = new database();

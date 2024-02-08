@@ -69,6 +69,40 @@ class database
     $data = mysqli_query($this->koneksi, $query);
     return $data;
   }
+
+
+  public function get_orders_by_customer_online()
+  {
+    $query = "
+            SELECT
+            Customer.customerID,
+            Customer.name,
+            Customer.email,
+            Customer.phoneNumber,
+            Customer.address,
+            Orders.orderID,
+            Orders.orderDate,
+            Orders.status AS orderStatus,
+            Orders.paymentStatus,
+            Orders.paymentMethod,
+            Orders.orderDate, 
+            GROUP_CONCAT(Menu.menuName SEPARATOR ', ') AS menuNames,
+            GROUP_CONCAT(OrderDetail.quantity SEPARATOR ', ') AS quantities,
+            GROUP_CONCAT(Menu.price SEPARATOR ', ') AS prices
+        FROM
+            Customer
+        JOIN Orders ON Customer.customerID = Orders.customerID
+        JOIN OrderDetail ON Orders.orderID = OrderDetail.orderID
+        JOIN Menu ON OrderDetail.menuID = Menu.menuID
+        WHERE orderType = 'Online'
+        GROUP BY
+            Orders.orderID
+        ORDER BY
+            Orders.orderDate DESC";
+    $data = mysqli_query($this->koneksi, $query);
+    return $data;
+  }
+
   public function get_orders_by_customer_offline()
   {
     $query = "
@@ -357,7 +391,7 @@ class database
   // }
 
 
-  
+
   public function get_all_menu()
   {
     $getMenuQuery = "SELECT * FROM menu";
@@ -365,7 +399,7 @@ class database
     $data = mysqli_query($this->koneksi, $getMenuQuery);
     return $data;
   }
-  
+
   public function get_menu_by_category($kategori)
   {
     $getMenuQuery = "SELECT * FROM menu WHERE category = '$kategori'";

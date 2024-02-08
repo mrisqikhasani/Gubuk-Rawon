@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("layout/navbar.php");
 
 @include('../koneksi.php');
@@ -47,7 +48,7 @@ $resultMenu = $db->get_all_menu();
 <div class="container-fluid">
   <!-- Konten Anda -->
   <h1 class="h3 m-5 text-gray-800">Halaman Tambah pesanan secara offline</h1>
-  <form action="request/insertOrderOffline.php" method="post" id="inserForm">
+  <form action="request/insertOrderOffline.php" method="post" id="insertForm">
 
     <div class="card shadow mb-4">
       <div class="card-body">
