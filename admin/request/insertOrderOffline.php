@@ -3,16 +3,15 @@ include('../../koneksi.php');
 
 $db = new database();
 
+// var_dump($_POST);
+// die;
 
 $postedData = $_POST;
 
-$customerData = [
-  'name' => $postedData['name'],
-  'phoneNumber' => $postedData['phoneNumber'],
-  'email' => $postedData['email'],
-  'address' => $postedData['address'],
+$totalData = [
   'total' => $postedData['total'],
-  'metodePembayaran'=> $postedData['metodePembayaran'],
+  'customerID'=> 1,
+  'orderType' => 'Offline',
 ];
 
 $products = [];
@@ -32,14 +31,14 @@ foreach ($postedData as $key => $value) {
 }
 
 // print_r($products);
-// print_r($customerData);
+// print_r($totalData);
 
-$result = $db->post_order($customerData, $products);
+$result = $db->post_order_without_customer($totalData, $products);
 $message = $result;
 
 if($message == 'Success'){
-  header("location:../index.php?message=insertSuccessfully");
+  header("location:../kasir.php?message=insertSuccessfully");
 } else {
-  header('location:..index.php');
+  header('location:..kasir.php');
 }
 ?>;

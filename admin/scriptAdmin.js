@@ -193,3 +193,18 @@ function removeItem(productId) {
 
   updateCartDisplay();
 }
+
+
+document.getElementById('searchInput').addEventListener('input', function() {
+  let keyword = this.value.toLowerCase();
+  let menuItems = document.getElementsByClassName('menu-item');
+
+  for (let item of menuItems) {
+      let itemName = item.getAttribute('data-name').toLowerCase();
+      if (itemName.includes(keyword)) {
+          item.style.display = 'block';
+      } else {
+          item.style.display = 'none';
+      }
+  }
+});

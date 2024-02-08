@@ -69,6 +69,34 @@ class database
     $data = mysqli_query($this->koneksi, $query);
     return $data;
   }
+  public function get_orders_by_customer_offline()
+  {
+    $query = "
+            SELECT
+            Customer.customerID,
+            Customer.name,
+            Orders.orderID,
+            Orders.orderDate,
+            Orders.status AS orderStatus,
+            Orders.paymentStatus,
+            Orders.paymentMethod,
+            Orders.orderDate, 
+            GROUP_CONCAT(Menu.menuName SEPARATOR ', ') AS menuNames,
+            GROUP_CONCAT(OrderDetail.quantity SEPARATOR ', ') AS quantities,
+            GROUP_CONCAT(Menu.price SEPARATOR ', ') AS prices
+        FROM
+            Customer
+        JOIN Orders ON Customer.customerID = Orders.customerID
+        JOIN OrderDetail ON Orders.orderID = OrderDetail.orderID
+        JOIN Menu ON OrderDetail.menuID = Menu.menuID
+        WHERE orderType = 'Offline'
+        GROUP BY
+            Orders.orderID
+        ORDER BY
+            Orders.orderDate DESC";
+    $data = mysqli_query($this->koneksi, $query);
+    return $data;
+  }
 
   public function get_orders_customer_by_id($orderId)
   {
@@ -116,11 +144,6 @@ class database
     return $data;
   }
 
-  public function get_customer($name)
-  {
-    $getCustomerQuery = '';
-  }
-
   // insert orders and table orderDetail
   public function post_order($customerData, $products)
   {
@@ -140,6 +163,39 @@ class database
         ";
     $ordersStmt = $this->koneksi->prepare($insertOrdersQuery);
     $ordersStmt->bind_param('ids', $customerID, $customerData['total'], $customerData['metodePembayaran']);
+    $ordersStmt->execute();
+    $ordersID = $ordersStmt->insert_id;
+    $ordersStmt->close();
+
+    // insert into OrderSDetails
+    $insertOrdersDetail = "INSERT INTO orderDetail(orderID, menuID, quantity, subtotal) VALUES(?, ?, ?, ?)";
+    $orderDetailsStmt = $this->koneksi->prepare($insertOrdersDetail);
+
+    foreach ($products as $productKey => $product) {
+      $productID = $product['productID'];
+      $quantity = $product['productQuantity'];
+      // $price = $product['productPrice'];
+      $subtotal = $product['subTotal'];
+      // Assuming $ordersID is defined elsewhere in your code
+      $orderDetailsStmt->bind_param('iiid', $ordersID, $productID, $quantity, $subtotal);
+      if (!$orderDetailsStmt->execute()) {
+        echo "Error: " . $orderDetailsStmt->error;
+        // }
+      }
+    }
+
+    $orderDetailsStmt->close();
+    return "Success";
+  }
+
+  public function post_order_without_customer($totalData, $products)
+  {
+    // insert into orders
+    $insertOrdersQuery = "
+        INSERT INTO orders(customerID, totalAmount, orderType) VALUES (?, ?, ?);
+        ";
+    $ordersStmt = $this->koneksi->prepare($insertOrdersQuery);
+    $ordersStmt->bind_param('ids', $totalData['customerID'], $totalData['total'], $totalData['orderType']);
     $ordersStmt->execute();
     $ordersID = $ordersStmt->insert_id;
     $ordersStmt->close();

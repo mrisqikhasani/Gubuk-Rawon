@@ -68,11 +68,11 @@ if (!isset($_SESSION['username']) or (!isset($_SESSION['userId']))) {
             <hr class="sidebar-divider">
 
             <!-- Nav Item - Tables -->
-            <!-- <li class="nav-item <?php echo $current_file === 'pemesanan.php' ? 'active' : '' ?> ">
-                <a class="nav-link" href="pemesanan.php">
+            <li class="nav-item <?php echo $current_file === 'kasir.php' ? 'active' : '' ?> ">
+                <a class="nav-link" href="kasir.php">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Pemesanan</span></a>
-            </li> -->
+                    <span>Kasir</span></a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
