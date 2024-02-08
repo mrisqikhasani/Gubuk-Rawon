@@ -68,9 +68,15 @@ if (!isset($_SESSION['username']) or (!isset($_SESSION['userId']))) {
             <hr class="sidebar-divider">
 
             <!-- Nav Item - Tables -->
+            <li class="nav-item <?php echo $current_file === 'pesananOnline.php' ? 'active' : '' ?> ">
+                <a class="nav-link" href="pesananOnline.php">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    <span>Pesanan Online</span></a>
+            </li>
+
             <li class="nav-item <?php echo $current_file === 'kasir.php' ? 'active' : '' ?> ">
                 <a class="nav-link" href="kasir.php">
-                    <i class="fas fa-fw fa-table"></i>
+                <i class="fa fa-shopping-basket" aria-hidden="true"></i>
                     <span>Kasir</span></a>
             </li>
 
