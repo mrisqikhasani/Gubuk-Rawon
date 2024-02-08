@@ -63,7 +63,9 @@ class database
         JOIN OrderDetail ON Orders.orderID = OrderDetail.orderID
         JOIN Menu ON OrderDetail.menuID = Menu.menuID
         GROUP BY
-            Orders.orderID";
+            Orders.orderID
+        ORDER BY
+            Orders.orderDate DESC";
     $data = mysqli_query($this->koneksi, $query);
     return $data;
   }
@@ -147,12 +149,6 @@ class database
     $orderDetailsStmt = $this->koneksi->prepare($insertOrdersDetail);
 
     foreach ($products as $productKey => $product) {
-      // if (strpos($productKey, "productName_") === 0) {
-      //   $productID = substr($productKey, strlen("productName_"));
-      //   $quantity = $product["productQuantity_$productID"]; // Adjust here
-      //   $price = $product["productPrice_$productID"]; // Adjust here
-
-
       $productID = $product['productID'];
       $quantity = $product['productQuantity'];
       // $price = $product['productPrice'];
@@ -261,48 +257,48 @@ class database
     }
   }
 
-  public function deleteOrder($orderId, $customerID)
-  {
-    $deleteOrderQuery = "
-        DELETE
-        FROM orders
-        WHERE orderID = ?
-        ";
+  // public function deleteOrder($orderId, $customerID)
+  // {
+  //   $deleteOrderQuery = "
+  //       DELETE
+  //       FROM orders
+  //       WHERE orderID = ?
+  //       ";
 
-    $deleteOrderDetailsQuery = "
-        DELETE 
-        FROM orderDetail
-        WHERE orderID = ?
-        ";
+  //   $deleteOrderDetailsQuery = "
+  //       DELETE 
+  //       FROM orderDetail
+  //       WHERE orderID = ?
+  //       ";
 
-    $deleteCustomerQuery = "
-        DELETE 
-        FROM 
-            customer
-        WHERE customerID = ?;
-        ";
+  //   $deleteCustomerQuery = "
+  //       DELETE 
+  //       FROM 
+  //           customer
+  //       WHERE customerID = ?;
+  //       ";
 
-    try {
-      $statementOrderQuery = $this->koneksi->prepare($deleteOrderQuery);
-      $statementOrderQuery->bind_param('i', $orderId);
+  //   try {
+  //     $statementOrderQuery = $this->koneksi->prepare($deleteOrderQuery);
+  //     $statementOrderQuery->bind_param('i', $orderId);
 
-      $statementOrderDetailQuery = $this->koneksi->prepare($deleteOrderDetailsQuery);
-      $statementOrderDetailQuery->bind_param('i', $orderId);
+  //     $statementOrderDetailQuery = $this->koneksi->prepare($deleteOrderDetailsQuery);
+  //     $statementOrderDetailQuery->bind_param('i', $orderId);
 
-      $statementCustomerQuery = $this->koneksi->prepare($deleteCustomerQuery);
-      $statementCustomerQuery->bind_param('i', $customerID);
+  //     $statementCustomerQuery = $this->koneksi->prepare($deleteCustomerQuery);
+  //     $statementCustomerQuery->bind_param('i', $customerID);
 
-      $statementOrderQuery->execute();
-      $statementCustomerQuery->execute();
+  //     $statementOrderQuery->execute();
+  //     $statementCustomerQuery->execute();
 
-      $statementOrderQuery->close();
-      $statementCustomerQuery->close();
+  //     $statementOrderQuery->close();
+  //     $statementCustomerQuery->close();
 
-      return "success";
-    } catch (Exception $e) {
-      return "error: " . $e->getMessage();
-    }
-  }
+  //     return "success";
+  //   } catch (Exception $e) {
+  //     return "error: " . $e->getMessage();
+  //   }
+  // }
 
 
   

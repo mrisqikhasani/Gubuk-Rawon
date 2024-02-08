@@ -16,9 +16,7 @@ $results = $query->fetch_all(MYSQLI_ASSOC);
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <?php
     if (isset($_GET['message'])) {
-      if ($_GET['message'] == 'DeleteSuccessfully') {
-        echo "<p class='alert alert-success'>Pesanan berhasil dihapus</p> <br>";
-      } else if($_GET['message'] == 'insertSuccessfully') {
+      if($_GET['message'] == 'insertSuccessfully') {
         echo "<p class='alert alert-success'>Pesanan berhasil ditambahkan</p> <br>";
       }
     }

@@ -353,44 +353,8 @@ $resultOthers = $db->get_menu_by_category('lain-lain')->fetch_all(MYSQLI_ASSOC);
         <div class="footer-box pad-top-70">
           <div class="footer-in-main">
           </div>
-          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="footer-box-a">
-              <h3>About Us</h3>
-              <p>.
-              </p>
-              <ul class="socials-box footer-socials pull-left">
-                <li>
-                  <a href="#">
-                    <div class="social-circle-border"><i class="fa  fa-facebook"></i></div>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <div class="social-circle-border"><i class="fa fa-twitter"></i></div>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <div class="social-circle-border"><i class="fa fa-google-plus"></i></div>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <div class="social-circle-border"><i class="fa fa-pinterest"></i></div>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <div class="social-circle-border"><i class="fa fa-linkedin"></i></div>
-                  </a>
-                </li>
-              </ul>
-
-            </div>
-            <!-- end footer-box-a -->
-          </div>
-          <!-- end col -->
-          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <div class="footer-box-b">
               <h3>Pesan Online</h3>
               <ul>
@@ -401,7 +365,7 @@ $resultOthers = $db->get_menu_by_category('lain-lain')->fetch_all(MYSQLI_ASSOC);
             <!-- end footer-box-b -->
           </div>
           <!-- end col -->
-          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <div class="footer-box-c">
               <h3>Kontak Kami</h3>
               <p>
@@ -420,7 +384,7 @@ $resultOthers = $db->get_menu_by_category('lain-lain')->fetch_all(MYSQLI_ASSOC);
             <!-- end footer-box-c -->
           </div>
           <!-- end col -->
-          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <div class="footer-box-d">
               <h3>Jam Buka - Tutup</h3>
 

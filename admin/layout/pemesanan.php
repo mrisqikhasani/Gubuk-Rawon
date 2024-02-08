@@ -1,12 +1,12 @@
 <?php
-// @include("layout/navbar.php");
-
-// @include("../koneksi.php");
 
 $db = new database();
 
 $query = $db->get_orders_by_customer();
 $result = $query->fetch_all(MYSQLI_ASSOC);
+
+// var_dump($result);
+// die;
 
 ?>
 
@@ -37,7 +37,12 @@ $result = $query->fetch_all(MYSQLI_ASSOC);
 					<tbody>
 						<?php
 						$counter = 1;
-						foreach ($result as $value) : ?>
+						foreach ($result as $value) : 
+						
+							// var_dump($value['orderID']);
+							// die;
+						
+						?>
 							<tr>
 								<td><?= $value['orderID'] ?></td>
 								<td>
@@ -107,10 +112,6 @@ $result = $query->fetch_all(MYSQLI_ASSOC);
 									<a href="updatePemesanan.php?orderId=<?= $value['orderID'] ?>" class="btn btn-warning">
 										Edit
 									</a>
-									<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">
-										Delete
-									</button>
-									<?php @include('layout/modalDelete.php') ?>
 								</td>
 							</tr>
 							<?php @include('layout/modalDetail.php') ?>
@@ -126,8 +127,3 @@ $result = $query->fetch_all(MYSQLI_ASSOC);
 	</div>
 	<!-- /.container-fluid -->
 </div>
-
-<?php
-// @include('layout/footer.php');
-
-?>
