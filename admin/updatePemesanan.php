@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (!isset($_SESSION)) {
+  session_start();
+}
 
 include('../koneksi.php');
 include("layout/navbar.php");
@@ -76,20 +78,20 @@ if (isset($_GET['orderId'])) {
             </select> -->
 
             <?php
-              $statusPemesanan = $result['orderStatus']; 
-              // Buat array berisi opsi status pemesanan
-              $statusOptions = [
-                "Pending" => "Pending",
-                "Proses" => "Proses",
-                "Selesai" => "Selesai",
-                "Diantar" => "Diantar",
-                "Cancelled" => "Cancelled"
-              ];
+            $statusPemesanan = $result['orderStatus'];
+            // Buat array berisi opsi status pemesanan
+            $statusOptions = [
+              "Pending" => "Pending",
+              "Proses" => "Proses",
+              "Selesai" => "Selesai",
+              "Diantar" => "Diantar",
+              "Cancelled" => "Cancelled"
+            ];
 
             if ($result['paymentStatus'] == 'Paid') {
               // Buat tag select dan opsi status pemesanan
               echo '<select name="statusPemesanan" id="selectStatusPemesanan' . $orderId . '" class="form-control mb-3">';
-              foreach ($statusOptions as $value => $label) {                
+              foreach ($statusOptions as $value => $label) {
                 // Tampilkan opsi
                 $selected = ($value == $statusPemesanan) ? 'selected' : '';
                 echo '<option value="' . $value . '" ' . $selected . ' ' . $disabled . '>' . $label . '</option>';
@@ -101,7 +103,7 @@ if (isset($_GET['orderId'])) {
                 // Tentukan apakah opsi harus dipilih (selected) atau dinonaktifkan (disabled)
                 $selected = ($value == $statusPemesanan) ? 'selected' : '';
                 $disabled = ($value != $statusPemesanan) ? 'disabled' : '';
-                
+
                 // Tampilkan opsi
                 echo '<option value="' . $value . '" ' . $selected . ' ' . $disabled . '>' . $label . '</option>';
               }
@@ -174,7 +176,7 @@ if (isset($_GET['orderId'])) {
           <div class="col-lg-8 mt-4">
             <label for="statusPayment">Payment Status</label>
 
-            <?php 
+            <?php
 
             $statusPayment = $result['paymentStatus'];
 
@@ -186,10 +188,10 @@ if (isset($_GET['orderId'])) {
 
             echo '<select class="form-control" name="statusPayment" id="selectStatusPayment" required>';
 
-            foreach($statusPaymentOptions as $value => $label) {
+            foreach ($statusPaymentOptions as $value => $label) {
               $selected = ($value == $statusPayment) ? 'selected' : '';
               // tampilkan option
-              echo '<option value="'.$value.'" '.$selected.'>'.$label.'</option>';
+              echo '<option value="' . $value . '" ' . $selected . '>' . $label . '</option>';
             }
 
             echo "</select>";

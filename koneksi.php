@@ -194,10 +194,10 @@ class database
 
     // insert into orders
     $insertOrdersQuery = "
-        INSERT INTO orders(customerID, totalAmount, paymentMethod) VALUES (?, ?, ?);
+        INSERT INTO orders(customerID, totalAmount, paymentMethod, orderType) VALUES (?, ?, ?, ?);
         ";
     $ordersStmt = $this->koneksi->prepare($insertOrdersQuery);
-    $ordersStmt->bind_param('ids', $customerID, $customerData['total'], $customerData['metodePembayaran']);
+    $ordersStmt->bind_param('idss', $customerID, $customerData['total'], $customerData['metodePembayaran'], $customerData['orderType']);
     $ordersStmt->execute();
     $ordersID = $ordersStmt->insert_id;
     $ordersStmt->close();
@@ -348,48 +348,48 @@ class database
     }
   }
 
-  // public function deleteOrder($orderId, $customerID)
-  // {
-  //   $deleteOrderQuery = "
-  //       DELETE
-  //       FROM orders
-  //       WHERE orderID = ?
-  //       ";
+  public function deleteOrder($orderId, $customerID)
+  {
+    $deleteOrderQuery = "
+        DELETE
+        FROM orders
+        WHERE orderID = ?
+        ";
 
-  //   $deleteOrderDetailsQuery = "
-  //       DELETE 
-  //       FROM orderDetail
-  //       WHERE orderID = ?
-  //       ";
+    $deleteOrderDetailsQuery = "
+        DELETE 
+        FROM orderDetail
+        WHERE orderID = ?
+        ";
 
-  //   $deleteCustomerQuery = "
-  //       DELETE 
-  //       FROM 
-  //           customer
-  //       WHERE customerID = ?;
-  //       ";
+    $deleteCustomerQuery = "
+        DELETE 
+        FROM 
+            customer
+        WHERE customerID = ?;
+        ";
 
-  //   try {
-  //     $statementOrderQuery = $this->koneksi->prepare($deleteOrderQuery);
-  //     $statementOrderQuery->bind_param('i', $orderId);
+    try {
+      $statementOrderQuery = $this->koneksi->prepare($deleteOrderQuery);
+      $statementOrderQuery->bind_param('i', $orderId);
 
-  //     $statementOrderDetailQuery = $this->koneksi->prepare($deleteOrderDetailsQuery);
-  //     $statementOrderDetailQuery->bind_param('i', $orderId);
+      $statementOrderDetailQuery = $this->koneksi->prepare($deleteOrderDetailsQuery);
+      $statementOrderDetailQuery->bind_param('i', $orderId);
 
-  //     $statementCustomerQuery = $this->koneksi->prepare($deleteCustomerQuery);
-  //     $statementCustomerQuery->bind_param('i', $customerID);
+      $statementCustomerQuery = $this->koneksi->prepare($deleteCustomerQuery);
+      $statementCustomerQuery->bind_param('i', $customerID);
 
-  //     $statementOrderQuery->execute();
-  //     $statementCustomerQuery->execute();
+      $statementOrderQuery->execute();
+      $statementCustomerQuery->execute();
 
-  //     $statementOrderQuery->close();
-  //     $statementCustomerQuery->close();
+      $statementOrderQuery->close();
+      $statementCustomerQuery->close();
 
-  //     return "success";
-  //   } catch (Exception $e) {
-  //     return "error: " . $e->getMessage();
-  //   }
-  // }
+      return "success";
+    } catch (Exception $e) {
+      return "error: " . $e->getMessage();
+    }
+  }
 
 
 

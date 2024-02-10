@@ -40,15 +40,15 @@ if (isset($_SESSION['$username']) || isset($_SESSION['userId'])) {
           $_SESSION['userId'] = $getData['userId'];
           header('location:../admin/index.php');
         } else {
-          header("location:login.php?pesan=gagal");
+          header("location:../login.php?pesan=gagal");
         }
       } else {
-        header("location:login.php?pesan=notfound");
+        header("location:../login.php?pesan=notfound");
       }
     } else {
-      header("location:login.php?pesan=empty");
+      header("location:../login.php?pesan=empty");
     }
   } else {
-    header("location:login.php?pesan=empty");
+    header("location:../login.php?pesan=empty");
   }
 }

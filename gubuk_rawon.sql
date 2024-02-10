@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2024 at 02:23 PM
+-- Generation Time: Feb 10, 2024 at 08:45 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -40,12 +40,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customerID`, `name`, `email`, `phoneNumber`, `address`) VALUES
-(1, 'tamu', NULL, NULL, NULL),
-(12, 'Project lain', 'john@example.com', '876541', 'Jdefefefefefefefvegrrtbrf'),
-(13, 'Journal', 'john@example.com', '1234567', 'Adjeefjejejfjeg'),
-(14, 'John Doe ', 'john@example.com', '08128654335', 'Jln radar auri'),
-(15, 'Minecraft', 'john@example.com', '876541', 'Di Depok sebelah sana 30 KM yang deket samping'),
-(17, 'Risqi Khasani', 'muhamadrisqi19@gmail.com', '081286541225', 'Di Depok sebelah sana 30 KM yang deket samping');
+(1, 'tamu', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -105,26 +100,6 @@ CREATE TABLE `orderdetail` (
   `subtotal` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `orderdetail`
---
-
-INSERT INTO `orderdetail` (`orderDetailID`, `orderID`, `menuID`, `quantity`, `subtotal`) VALUES
-(20, 9, 5, 1, '17.00'),
-(21, 9, 4, 1, '18.00'),
-(22, 10, 1, 1, '24.00'),
-(23, 10, 2, 1, '24.00'),
-(24, 12, 6, 1, '22.00'),
-(25, 12, 5, 1, '17.00'),
-(26, 13, 22, 1, '2.00'),
-(28, 15, 6, 1, '22.00'),
-(34, 18, 15, 1, '10.00'),
-(35, 18, 18, 1, '6.50'),
-(36, 19, 3, 1, '23.00'),
-(37, 20, 4, 2, '36.00'),
-(38, 20, 15, 2, '20.00'),
-(39, 20, 19, 1, '2.00');
-
 -- --------------------------------------------------------
 
 --
@@ -141,20 +116,6 @@ CREATE TABLE `orders` (
   `paymentMethod` enum('COD','Credit Card','Bank Transfer') DEFAULT 'COD',
   `orderType` enum('Online','Offline') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`orderID`, `customerID`, `orderDate`, `totalAmount`, `status`, `paymentStatus`, `paymentMethod`, `orderType`) VALUES
-(9, 12, '2024-01-30 21:46:41', '35.00', 'Proses', 'Pending', 'COD', 'Online'),
-(10, 13, '2024-01-31 07:13:53', '48.00', 'Proses', 'Pending', 'COD', 'Online'),
-(12, 14, '2024-01-31 12:05:25', '39.00', 'Pending', 'Pending', 'COD', 'Online'),
-(13, 15, '2024-02-01 09:12:28', '2.00', 'Pending', 'Pending', 'COD', 'Online'),
-(15, 17, '2024-02-01 09:16:39', '22.00', 'Pending', 'Paid', 'COD', 'Online'),
-(18, 1, '2024-02-08 16:18:14', '16.50', 'Pending', 'Pending', 'COD', NULL),
-(19, 1, '2024-02-08 16:24:54', '23.00', 'Pending', 'Pending', 'COD', 'Offline'),
-(20, 1, '2024-02-08 18:01:57', '58.00', 'Pending', 'Pending', 'COD', 'Offline');
 
 -- --------------------------------------------------------
 
@@ -221,7 +182,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `customerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `menu`
@@ -233,13 +194,13 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT for table `orderdetail`
 --
 ALTER TABLE `orderdetail`
-  MODIFY `orderDetailID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `orderDetailID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`

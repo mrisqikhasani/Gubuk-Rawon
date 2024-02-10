@@ -24,6 +24,7 @@ $customerData = [
   'address' => $alamat,
   'total' => $postedData['total'],
   'metodePembayaran'=> $postedData['metodePembayaran'],
+  'orderType' => 'Online',
 ];
 
 

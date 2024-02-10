@@ -1,5 +1,8 @@
 <?php
-session_start();
+if (!isset($_SESSION)) {
+  session_start();
+}
+
 include("layout/navbar.php");
 
 @include('../koneksi.php');
@@ -42,6 +45,32 @@ $resultMenu = $db->get_all_menu();
     background-color: #28a745;
     color: #fff;
   }
+
+  /* styke for listbox */
+
+  select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  select option {
+    padding: 8px 12px;
+  }
+
+  /* textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin-bottom: 10px;
+  } */
 </style>
 
 <!-- container -->
@@ -75,8 +104,43 @@ $resultMenu = $db->get_all_menu();
               <input type="text" class="form-control" name="email" placeholder="email...">
             </div>
             <div class="col-lg-8 m-2">
-              <label for="address">Alamat</label>
-              <input type="text" class="form-control" name="address" placeholder="alamat...">
+              <!-- <label for="address">Alamat</label>
+              <input type="text" class="form-control" name="address" placeholder="alamat..."> -->
+              <?php
+              ?>
+
+              <label class="form-label">Alamat</label>
+              <!-- <p>Hanya menerima pesanan sekitar kota Depok</p> -->
+
+              <label for="kota">Kota:</label>
+              <select name="kota" id="kota" class="form-control" onchange="populateKecamatan()">
+                <option value="">Pilih Kota</option>
+                <option value="Depok">Depok</option>
+                <!-- Tambahkan pilihan kota lainnya di sini -->
+              </select>
+              <br>
+
+              <label for="kecamatan">Kecamatan:</label>
+              <select name="kecamatan" id="kecamatan" class="form-control" onchange="populateKelurahan()">
+                <option value="">Pilih Kecamatan</option>
+                <!-- Opsi akan diisi dengan JavaScript -->
+              </select>
+              <br>
+
+              <label for="kelurahan">Kelurahan: </label>
+              <select name="kelurahan" id="kelurahan" class="form-control" onchange="enableRT()">
+                <option value="">Pilih Kelurahan</option>
+              </select>
+              <br>
+
+              <!-- <label for="rt">RT:</label>
+                  <input type="text" id="rt" disabled>
+                  <br>
+                  <label for="rw">RW:</label>
+                  <input type="text" id="rw" disabled> -->
+
+              <label for="catatan">Catatan Alamat:</label>
+              <textarea id="catatan" class="form-control" name="catatan" rows="4" cols="50" placeholder="Contoh Jln. Cempaka No 1 RT 01 RW 08..."></textarea>
             </div>
             <div class="col-lg-8 m-2">
               <label for="address" class="form-label">Metode Pembayaran</label>
@@ -92,49 +156,48 @@ $resultMenu = $db->get_all_menu();
         <div class="container">
           <div class="align-item-center row pt-5">
             <h1>Menu</h1>
+            <div class="input-group ml-auto mb-5">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+              </div>
+              <input type="text" id="searchInput" class="form-control" placeholder="Cari menu...">
+            </div>
           </div>
 
-          <div class="row">
-            <?php
-            foreach ($resultMenu as $row) {
-            ?>
-              <div class='col-md-4'>
-                <div class='card' id='menu-list' onclick='addToCart(event)'>
-                  <div class='menu' data-id='<?= $row['menuID'] ?>' data-name='<?= $row['menuName'] ?>' data-price='<?= $row[' price'] ?>'>
-                    <div class='menu'>
-                      <img src="../assets/img/menu/<?= $row['imageName'] ?>" class="card-img-top" alt="Menu Image" style="max-height: 200px; object-fit: cover;">
-                      <div class='card-body menu' data-id='<?= $row['menuID'] ?>' data-name='<?= $row['menuName'] ?>' data-price='<?= $row['price'] ?>'>
-                        <h4 class='card-title'><?= $row['menuName'] ?></h4>
-                        <p class="card-text"><?= $row['description'] ?></p>
-                        <p class="card-text mu-menu-price"> Rp <?= $row['price'] ?></p>
-                        <button type="button" class='btn btn-primary btn-sm'>Add To Cart</button>
-                      </div>
+          <div class="cart-admin pb-5">
+            <h5><i class="fa fa-shopping-cart" aria-hidden="true"></i> Keranjang</h5>
+            <table class="cart-show table table-bordered" width="100%">
+              <thead>
+                <th>Menu</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Sub Total</th>
+                <th>Action</th>
+              </thead>
+              <tbody id="cart-items">
+
+              </tbody>
+            </table>
+            <div id="cart-footer">
+            </div>
+          </div>
+
+          <div class="row" id="menuList">
+            <?php foreach ($resultMenu as $row) { ?>
+              <div class="col-md-4 menu-item" data-name="<?= $row['menuName'] ?>">
+                <div class="card" id="menu-list" onclick="addToCart(event)">
+                  <div class="menu" data-id="<?= $row['menuID'] ?>" data-name="<?= $row['menuName'] ?>" data-price="<?= $row['price'] ?>">
+                    <img src="../assets/img/menu/<?= $row['imageName'] ?>" class="card-img-top" alt="Menu Image" style="max-height: 200px; object-fit: cover;">
+                    <div class="card-body menu" data-id="<?= $row['menuID'] ?>" data-name="<?= $row['menuName'] ?>" data-price="<?= $row['price'] ?>">
+                      <h4 class="card-title"><?= $row['menuName'] ?></h4>
+                      <p class="card-text"><?= $row['description'] ?></p>
+                      <p class="card-text mu-menu-price"> Rp <?= $row['price'] ?></p>
+                      <button type="button" class="btn btn-primary btn-sm">Add To Cart</button>
                     </div>
                   </div>
                 </div>
               </div>
-            <?php
-            }
-            ?>
-
-            <div class="cart-admin pt-5">
-              <h5><i class="fa fa-shopping-cart" aria-hidden="true"></i> Keranjang</h5>
-              <table class="cart-show table table-bordered" width="100%">
-                <thead>
-                  <th>Menu</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Sub Total</th>
-                  <th>Action</th>
-                </thead>
-                <tbody id="cart-items">
-
-                </tbody>
-              </table>
-              <div id="cart-footer">
-              </div>
-            </div>
-
+            <?php } ?>
           </div>
         </div>
       </div>

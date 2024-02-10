@@ -17,7 +17,7 @@ $result = $query->fetch_all(MYSQLI_ASSOC);
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<a href="insertPemesanan.php" class="btn btn-primary float-right">Tambah Pesanan</a>
+			<!-- <a href="insertPemesanan.php" class="btn btn-primary float-right">Tambah Pesanan</a> -->
 			<h6 class="m-0 font-weight-bold text-primary">Semua Data Order</h6>
 		</div>
 		<div class="card-body">
@@ -125,6 +125,10 @@ $result = $query->fetch_all(MYSQLI_ASSOC);
 									<a href="updatePemesanan.php?orderId=<?= $value['orderID'] ?>" class="btn btn-warning">
 										Edit
 									</a>
+									<!-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete">
+										Delete
+									</button> -->
+									<?php @include('layout/modalDelete.php') ?>
 								</td>
 							</tr>
 							<?php @include('layout/modalDetail.php') ?>
