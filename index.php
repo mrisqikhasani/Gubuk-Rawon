@@ -163,7 +163,7 @@ $resultOthers = $db->get_menu_by_category('lain-lain')->fetch_all(MYSQLI_ASSOC);
               <span class="mu-title-bar"></span>
             </div>
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <div class="mu-about-us-left">
                 <p style="font-size: 18px; line-height: 2.0; text-align:center;">
                 Selamat datang di Gubuk Rawon, tempat lezat dengan cita rasa khas Jawa Timur di Depok, Jawa Barat. Berdiri sejak 2020, kami membawa kelezatan hidangan khas Jawa Timur, terutama rawon.
@@ -171,18 +171,20 @@ $resultOthers = $db->get_menu_by_category('lain-lain')->fetch_all(MYSQLI_ASSOC);
                 </p>
                 </div>
               </div>
-              <!-- <div class="col-md-6">
+              <div class="col-md-6">
                 <div class="mu-about-us-right">
-                  <ul class="mu-abtus-slider">
+                
+                  <!-- <ul class="mu-abtus-slider">
                     <li><img src="assets/img/about-us/abtus-img-1.png" alt="img"></li>
                     <li><img src="assets/img/about-us/abtus-img-2.png" alt="img"></li>
                     <li><img src="assets/img/about-us/abtus-img-6.png" alt="img"></li>
                     <li><img src="assets/img/about-us/abtus-img-4.png" alt="img"></li>
                     <li><img src="assets/img/about-us/abtus-img-5.png" alt="img"></li>
                     <li style="border-radius: 50%;"><img src="assets/img/about-us/abtus-img-5.png" alt="img"></li>
-                  </ul>
+                  </ul> -->
+                  <img src="assets/img/about-us/image_about us.jpg" alt="image" style="border-radius: 40%;">
                 </div>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
