@@ -74,11 +74,11 @@ include("layout/header.php");
         <p class="card-text">Terima kasih atas pesanan Anda. Kami akan segera memprosesnya.</p>
         <p class="card-text note">Jika Anda membayar dengan metode transfer bank, agar pesanan anda kami proses, silahkan transfer ke rekening berikut</p>
         <ul class="bank-info">
-          <li><strong>Bank:</strong> Bank ABC</li>
-          <li><strong>Nomor Rekening:</strong> 1234-5678-9012</li>
-          <li><strong>Atas Nama:</strong> Nama Anda</li>
+          <li><strong>Bank:</strong> Bank BCA</li>
+          <li><strong>Nomor Rekening:</strong> 2040429100 </li>
+          <li><strong>Atas Nama:</strong> CANDRA WIDODO</li>
         </ul>
-        <p class="card-text note">Setelah melakukan transfer, Silahkan konfirmasikan ke nomor WhatsApp kami: <strong>+6281234567890</strong>
+        <p class="card-text note">Setelah melakukan transfer, Silahkan konfirmasikan ke nomor WhatsApp kami: <strong>+6285776273796</strong>
         <br>
         <br>
         Jika tidak melakukan konfirmasi, pesanan anda tidak akan kami proses
